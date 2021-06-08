@@ -39,9 +39,14 @@ code {
   width: 40%;
 }
 
-.btn-submit-right {
-  /* margin-left: 10%; */
-}
-.btn-submit-left {
-  /* margin-right: 10%; */
+.food-grid-container {
+  display: grid;
+  grid-template-columns: 30% 16% 12% 10% 13% 13% 5%;
+  grid-template-rows: 10%;
+  /* gap: 0px 0px; */
+  grid-template-areas: ". . . . . . .";
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
 }
