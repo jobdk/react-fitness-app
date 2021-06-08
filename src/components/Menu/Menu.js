@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "../Main/Shared/Button";
 import "./Menu.css";
 import { slide as Burgermenu } from "react-burger-menu";
+import { BsFillPersonFill } from "react-icons/bs";
 
 const Menu = (props) => {
   return (
@@ -21,6 +21,9 @@ const Menu = (props) => {
 
         <a className="menu-item" onClick={props.onTrackerClick}>
           Tracker
+        </a>
+        <a className="menu-item" onClick={props.onUserClick}>
+          <BsFillPersonFill />
         </a>
       </Burgermenu>
     </div>

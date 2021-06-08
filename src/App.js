@@ -7,6 +7,7 @@ import Tracker from "./components/Main/Tracker/Tracker";
 import { Switch, Route } from "react-router-dom";
 import { useHistory, withRouter } from "react-router-dom";
 import Authentication from "./components/Main/Authentification/Authentification";
+import Signup from "./components/Main/Authentification/Signup/Signup";
 
 function App() {
   let history = useHistory();
@@ -17,7 +18,8 @@ function App() {
       <Route path="/exerciseDb" component={ExercisesDb} />
       <Route path="/profiles" component={Profiles} />
       <Route path="/tracker" component={Tracker} />
-      <Route path="/user" component={Authentication} />
+      <Route path="/user/signin" component={Authentication} />
+      <Route path="/user/signup" component={Signup} />
     </Switch>
   );
 
@@ -37,6 +39,9 @@ function App() {
         }}
         onTrackerClick={() => {
           history.push("/tracker");
+        }}
+        onUserClick={() => {
+          history.push("/user/signin");
         }}
       />
       <div id="page-wrap">
