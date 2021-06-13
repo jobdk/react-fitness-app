@@ -1,9 +1,11 @@
 import React from "react";
 import Food from "./Food/Food";
 import { useHistory } from "react-router-dom";
+import { BsFillPlusCircleFill } from "react-icons/bs";
 
 const Foods = ({ foods, onDelete }) => {
   let history = useHistory();
+
   return (
     <div>
       <div className="food-grid-container">
@@ -34,12 +36,19 @@ const Foods = ({ foods, onDelete }) => {
           onDelete={onDelete}
           onEdit={(id) =>
             history.push({
-              pathname: "/food/edit/",
-              state: id,
+              pathname: "/food/edit/" + id,
             })
           }
         />
       ))}
+      <BsFillPlusCircleFill
+        className="plus-icon"
+        onClick={(id) =>
+          history.push({
+            pathname: "/food/add/" + id,
+          })
+        }
+      />
     </div>
   );
 };
