@@ -2,7 +2,7 @@ import { useState } from "react";
 import Signup from "./Signup/Signup";
 import { useHistory, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import * as actions from "../../../store/actions/actions";
+import * as authentificationActions from "../../../store/actions/authentification-actions";
 
 const Authentication = (props) => {
   const [email, setEmail] = useState("");
@@ -23,45 +23,55 @@ const Authentication = (props) => {
     setPassword("");
   };
 
+  const logout = () => {
+    props.logout();
+  };
+
   return (
-    <form className="login-signup-form" onSubmit={onSubmit}>
-      <div className="form-control">
+    <div>
+      <form className="login-signup-form" onSubmit={onSubmit}>
+        <div className="form-control">
+          <input
+            type="text"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-control">
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
         <input
-          type="text"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="submit"
+          value="Signin"
+          className="btn-submit btn-submit-left"
         />
-      </div>
-      <div className="form-control">
         <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          type="button"
+          value="Signup"
+          className="btn-submit btn-submit-right"
+          onClick={() => {
+            history.push("/user/signup");
+          }}
         />
-      </div>
-      <input
-        type="submit"
-        value="Signin"
-        className="btn-submit btn-submit-left"
-      />
-      <input
-        type="button"
-        value="Signup"
-        className="btn-submit btn-submit-right"
-        onClick={() => {
-          history.push("/user/signup");
-        }}
-      />
-    </form>
+      </form>
+      <button onClick={() => logout()}>logout</button>
+    </div>
   );
 };
 
 const mapActionToProps = (dispatch) => {
   return {
     login: (user) => {
-      dispatch(actions.login(user));
+      dispatch(authentificationActions.login(user));
+    },
+    logout: (user) => {
+      dispatch(authentificationActions.logout(user));
     },
   };
 };

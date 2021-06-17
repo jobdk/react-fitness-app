@@ -5,15 +5,37 @@ import { useStore } from "react-redux";
 const EditFood = () => {
   let { id } = useParams();
   const store = useStore();
+
+  const [name, setName] = useState("");
+  const [baseAmount, setBaseAmount] = useState("");
+  const [energy, setEnergy] = useState("");
+  const [fat, setFat] = useState("");
+  const [carbohydrates, setCarbohydrates] = useState("");
+  const [protein, setProtein] = useState("");
+  const [salt, setSalt] = useState("");
+  const [fiber, setFiber] = useState("");
+  const [drink, setDrink] = useState(false);
+
   const [food, setFood] = useState("");
 
   useEffect(() => {
     for (let i = 0; i < store.getState().foods.length; i++) {
       if (store.getState().foods[i]._id === id) {
+        setName(food.name);
+        setBaseAmount(food.baseAmount);
+        setEnergy(food.energy);
+        setFat(food.fat);
+        setCarbohydrates(food.carbohydrates);
+        setProtein(food.protein);
+        setSalt(food.salt);
+        setFiber(food.fiber);
+        setDrink(food.drink);
+
         setFood(store.getState().foods[i]);
       }
     }
   });
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (false) {
@@ -26,57 +48,102 @@ const EditFood = () => {
     <form className="login-signup-form" onSubmit={onSubmit}>
       <div className="form-control">
         <label>
-          <h3>name</h3>
+          <b>name</b>
         </label>
         <input
           type="text"
           placeholder="name"
-          value={food.name}
-          // onChange={(e) => setFirstname(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className="form-control">
         <label>
-          <h3>baseAmount</h3>
+          <b>baseAmount</b>
         </label>
         <input
           type="text"
           placeholder="baseAmount"
-          value={food.baseAmount}
-          // onChange={(e) => setLastname(e.target.value)}
+          value={baseAmount}
+          onChange={(e) => setBaseAmount(e.target.value)}
         />
       </div>
       <div className="form-control">
         <label>
-          <h3>energy</h3>
+          <b>energy</b>
         </label>
         <input
           type="text"
           placeholder="energy"
-          value={food.energy}
-          // onChange={(e) => setStreet(e.target.value)}
+          value={energy}
+          onChange={(e) => setEnergy(e.target.value)}
         />
       </div>
       <div className="form-control">
         <label>
-          <h3>fat</h3>
+          <b>fat</b>
         </label>
         <input
           type="text"
           placeholder="fat"
-          value={food.fat}
-          // onChange={(e) => setPostcode(e.target.value)}
+          value={fat}
+          onChange={(e) => setFat(e.target.value)}
         />
       </div>
       <div className="form-control">
         <label>
-          <h3>carbohydrates</h3>
+          <b>carbohydrates</b>
         </label>
         <input
           type="text"
           placeholder="city"
-          value={food.carbohydrates}
-          // onChange={(e) => setCity(e.target.value)}
+          value={carbohydrates}
+          onChange={(e) => setCarbohydrates(e.target.value)}
+        />
+      </div>
+      <div className="form-control">
+        <label>
+          <b>protein</b>
+        </label>
+        <input
+          type="text"
+          placeholder="protein"
+          value={protein}
+          onChange={(e) => setProtein(e.target.value)}
+        />
+      </div>
+
+      <div className="form-control">
+        <label>
+          <b>salt</b>
+        </label>
+        <input
+          type="text"
+          placeholder="salt"
+          value={salt}
+          onChange={(e) => setSalt(e.target.value)}
+        />
+      </div>
+
+      <div className="form-control">
+        <label>
+          <b>fiber</b>
+        </label>
+        <input
+          type="text"
+          placeholder="fiber"
+          value={fiber}
+          onChange={(e) => setFiber(e.target.value)}
+        />
+      </div>
+      <div className="form-control">
+        <label>
+          <b>is a drink</b>
+        </label>
+        <input
+          type="checkbox"
+          value={drink}
+          onChange={(e) => setDrink(e.currentTarget.checked)}
         />
       </div>
       <input

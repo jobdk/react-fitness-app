@@ -1,43 +1,36 @@
 import Exercises from "./Exercises/Exercises";
 import { connect } from "react-redux";
-import React, { Component } from "react";
-import * as actions from "../../../store/actions/actions";
+import * as exerciseAction from "../../../store/actions/exercise-actions";
 
-export class ExercisesDb extends Component {
-  onDelete = (id) => {
-    alert(id);
+const ExercisesDb = (props) => {
+  const onDelete = (id) => {
+    props.deleteExercise(id);
   };
 
-  onEdit = (id) => {
-    alert(id);
-  };
-
-  render() {
-    let exercises = null;
-    if (this.props.exercises) {
-      exercises = this.props.exercises;
-      return (
-        <div>
-          <Exercises exercises={exercises} onDelete={this.onDelete} />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <h1>Error Http Request</h1>
-        </div>
-      );
-    }
+  let exercises = null;
+  if (props.exercises) {
+    exercises = props.exercises;
+    return (
+      <div>
+        <Exercises exercises={exercises} onDelete={onDelete} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>Error Http Request</h1>
+      </div>
+    );
   }
-}
+};
 
-// const mapActionToProps = (dispatch) => {
-//   return {
-//     deleteFoods: (foods) => {
-//       dispatch(actions.deleteFoods(foods));
-//     },
-//   };
-// };
+const mapActionToProps = (dispatch) => {
+  return {
+    deleteExercise: (exerciseId) => {
+      dispatch(exerciseAction.deleteExercise(exerciseId));
+    },
+  };
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -45,4 +38,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(ExercisesDb);
+export default connect(mapStateToProps, mapActionToProps)(ExercisesDb);

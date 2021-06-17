@@ -15,19 +15,19 @@ export const Exercise = ({ exercise, onDelete, onEdit }) => {
       </div>
       <div>
         <h3>
-          <span
-            onClick={() => {
-              onEdit(exercise._id);
-            }}
-          >
-            <BsPencilSquare />
+          <span>
+            <BsPencilSquare
+              onClick={() => {
+                onEdit(exercise._id);
+              }}
+            />
           </span>
-          <span
-            onClick={() => {
-              onDelete(exercise._id);
-            }}
-          >
-            <BsTrash />
+          <span>
+            <BsTrash
+              onClick={() => {
+                onDelete(exercise._id);
+              }}
+            />
           </span>
         </h3>
       </div>

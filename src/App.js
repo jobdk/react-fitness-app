@@ -3,7 +3,7 @@ import Menu from "./components/Menu/Menu";
 import React, { Component } from "react";
 import FoodsDb from "./components/Main/FoodsDb/FoodsDb";
 import ExercisesDb from "./components/Main/ExercisesDb/ExercisesDb";
-import Profiles from "./components/Main/Profiles/Profiles";
+import ProfilesDb from "./components/Main/ProfilesDb/ProfilesDb";
 import Tracker from "./components/Main/Tracker/Tracker";
 import { Switch, Route } from "react-router-dom";
 import Authentication from "./components/Main/Authentification/Authentification";
@@ -13,7 +13,8 @@ import AddFood from "./components/Main/FoodsDb/Foods/AddFood/AddFood";
 import EditExercise from "./components/Main/ExercisesDb/EditExercise/EditExercise";
 import AddExercise from "./components/Main/ExercisesDb/AddExercise/AddExercise";
 import { connect } from "react-redux";
-import * as actions from "././store/actions/actions";
+import * as exerciseActions from "./store/actions/exercise-actions";
+import * as foodActions from "././store/actions/food-actions";
 
 class App extends Component {
   componentDidMount() {
@@ -25,7 +26,7 @@ class App extends Component {
     <Switch>
       <Route path="/foodsdb" component={FoodsDb} />
       <Route path="/exerciseDb" component={ExercisesDb} />
-      <Route path="/profiles" component={Profiles} />
+      <Route path="/profiles" component={ProfilesDb} />
       <Route path="/tracker" component={Tracker} />
       <Route path="/user/signin" component={Authentication} />
       <Route path="/user/signup" component={Signup} />
@@ -52,10 +53,10 @@ class App extends Component {
 const mapActionToProps = (dispatch) => {
   return {
     getFoods: () => {
-      dispatch(actions.getFoods());
+      dispatch(foodActions.getFoods());
     },
     getExercises: () => {
-      dispatch(actions.getExercises());
+      dispatch(exerciseActions.getExercises());
     },
   };
 };

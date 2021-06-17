@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as actions from "../../../../../store/actions/actions";
+import * as foodActions from "../../../../../store/actions/food-actions";
 import { connect } from "react-redux";
 
 const AddFood = (props) => {
@@ -11,7 +11,7 @@ const AddFood = (props) => {
   const [protein, setProtein] = useState("");
   const [salt, setSalt] = useState("");
   const [fiber, setFiber] = useState("");
-  const [drink, setDrink] = useState();
+  const [drink, setDrink] = useState(false);
 
   const [food, setFood] = useState();
 
@@ -154,7 +154,7 @@ const AddFood = (props) => {
 const mapActionToProps = (dispatch) => {
   return {
     postFood: (food) => {
-      dispatch(actions.postFood(food));
+      dispatch(foodActions.postFood(food));
     },
   };
 };

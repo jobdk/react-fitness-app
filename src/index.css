@@ -73,3 +73,15 @@ label {
   width: 30px;
   height: 30px;
 }
+
+profile-grid-container {
+  display: grid;
+  grid-template-columns: 25% 12.5% 12.5% 12.5% 12.5% 12.5%;
+  grid-template-rows: 10%;
+  /* gap: 0px 0px; */
+  grid-template-areas: ". . . . . .";
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
