@@ -1,4 +1,5 @@
 import axios from "../../axios-url";
+import { checkErrorMessage } from "../../utils/FunctionUtils";
 
 export const STORE_PROFILES = "STOREPROFILES";
 
@@ -17,7 +18,7 @@ export const getProfiles = () => {
         dispatch(storeProfiles(response.data));
       })
       .catch((error) => {
-        checkErrorMessage(error);
+        alert(error.response.data);
       });
   };
 };
@@ -27,17 +28,31 @@ export const deleteProfile = (profileId) => {
     axios
       .delete("/fitness/profile/:" + profileId, { withCredentials: true })
       .then((response) => {
+        if (
+          response.data.msg === "Deleting all days for this profile went wrong!"
+        ) {
+          alert(response.data.msg);
+        }
+
         // console.log(response);
         // console.log(response.data);
       })
       .catch((error) => {
-        checkErrorMessage(error);
+        alert(error.response.data);
       });
   };
 };
 
-const checkErrorMessage = (error) => {
-  if (error.message == "Request failed with status code 401") {
-    alert("you need to login");
-  } else alert("unknown error occurred");
+export const postProfile = (profile) => {
+  return (dispatch) => {
+    axios
+      .post("/fitness/profile/", profile, { withCredentials: true })
+      .then((response) => {
+        console.log(response);
+        //dispatch(storeFoods(response.data));
+      })
+      .catch((error) => {
+        alert(error.response.data);
+      });
+  };
 };

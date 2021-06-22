@@ -1,4 +1,5 @@
 import axios from "../../axios-url";
+import { checkErrorMessage } from "../../utils/FunctionUtils";
 
 // export const STORE_PHOTOS = "STOREPHOTOS";
 // get
@@ -20,7 +21,7 @@ export const getExercises = () => {
         dispatch(storeExercises(response.data));
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data);
       });
   };
 };
@@ -48,7 +49,7 @@ export const postExercise = (exercise) => {
         //dispatch(storeFoods(response.data));
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data);
       });
   };
 };

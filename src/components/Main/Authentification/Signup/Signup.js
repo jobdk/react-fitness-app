@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { connect } from "react-redux";
+import * as authentificationActions from "../../../../store/actions/authentification-actions";
 
-const Signup = () => {
+const Signup = (props) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [street, setStreet] = useState("");
@@ -12,7 +14,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  // TODO signup
   const onSubmit = (e) => {
     e.preventDefault();
     if (
@@ -29,6 +30,24 @@ const Signup = () => {
       alert("please add data.");
       return;
     }
+
+    const newUser = {
+      firstname: firstname,
+      lastname: lastname,
+      street: street,
+      postcode: postcode,
+      city: city,
+      country: country,
+      phone: phone,
+      password: password,
+      email: email,
+    };
+
+    props.signup(newUser);
+  };
+
+  const signup = () => {
+    props.signup();
   };
 
   return (
@@ -114,4 +133,12 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapActionToProps = (dispatch) => {
+  return {
+    signup: (user) => {
+      console.log(user);
+      dispatch(authentificationActions.signup(user));
+    },
+  };
+};
+export default connect(null, mapActionToProps)(Signup);

@@ -26,7 +26,7 @@ const EditExercise = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (false) {
+    if (!name & !baseTime & !energyBurned) {
       alert("please add data.");
       return;
     }

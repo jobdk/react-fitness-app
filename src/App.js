@@ -12,6 +12,8 @@ import EditFood from "./components/Main/FoodsDb/Foods/EditFood/EditFood";
 import AddFood from "./components/Main/FoodsDb/Foods/AddFood/AddFood";
 import EditExercise from "./components/Main/ExercisesDb/EditExercise/EditExercise";
 import AddExercise from "./components/Main/ExercisesDb/AddExercise/AddExercise";
+import NewProfile from "./components/Main/ProfilesDb/Profiles/Profile/NewProfile/NewProfile";
+import EditProfile from "./components/Main/ProfilesDb/Profiles/Profile/EditProfile/EditProfile";
 import { connect } from "react-redux";
 import * as exerciseActions from "./store/actions/exercise-actions";
 import * as foodActions from "././store/actions/food-actions";
@@ -34,6 +36,8 @@ class App extends Component {
       <Route path="/food/add/" component={AddFood} />
       <Route path="/exercise/edit/:id" component={EditExercise} />
       <Route path="/exercise/add/" component={AddExercise} />
+      <Route path="/profile/add" component={NewProfile} />
+      <Route path="/profile/edit/:id" component={EditProfile} />
     </Switch>
   );
 

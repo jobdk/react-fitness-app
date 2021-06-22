@@ -1,6 +1,6 @@
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 
-const Profile = ({ profile, onDelete, onUpdate }) => {
+const Profile = ({ profile, onDelete, onEdit }) => {
   /*
 {
     "name": "Me",
@@ -34,7 +34,7 @@ const Profile = ({ profile, onDelete, onUpdate }) => {
           <span>
             <BsPencilSquare
               onClick={() => {
-                onUpdate(profile._id);
+                onEdit(profile._id);
               }}
             />
           </span>

@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 
 const ProfilesDb = (props) => {
   const onDelete = (id) => {
-    alert(id);
     props.deleteProfile(id);
   };
 

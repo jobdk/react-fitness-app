@@ -17,7 +17,7 @@ export const getFoods = () => {
         dispatch(storeFoods(response.data));
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data);
       });
   };
 };
@@ -31,7 +31,7 @@ export const deleteFood = (foodId) => {
         // dispatch(storeFoods(foods));
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data);
       });
   };
 };
@@ -55,7 +55,7 @@ export const postFood = (food) => {
         //dispatch(storeFoods(response.data));
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data);
       });
   };
 };
@@ -69,7 +69,7 @@ export const putFood = (food) => {
         //dispatch(storeFoods(response.data));
       })
       .catch((error) => {
-        console.log(error);
+        alert(error.response.data);
       });
   };
 };

@@ -74,7 +74,7 @@ label {
   height: 30px;
 }
 
-profile-grid-container {
+.profile-grid-container {
   display: grid;
   grid-template-columns: 25% 12.5% 12.5% 12.5% 12.5% 12.5%;
   grid-template-rows: 10%;

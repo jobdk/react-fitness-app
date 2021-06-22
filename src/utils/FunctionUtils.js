@@ -1,0 +1,1 @@
+export const checkErrorMessage = (error) => {};

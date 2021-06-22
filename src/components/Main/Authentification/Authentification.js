@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Signup from "./Signup/Signup";
 import { useHistory, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as authentificationActions from "../../../store/actions/authentification-actions";
