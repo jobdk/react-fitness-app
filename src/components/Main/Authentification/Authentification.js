@@ -6,10 +6,11 @@ import * as authentificationActions from "../../../store/actions/authentificatio
 const Authentication = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState();
 
   let history = useHistory();
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!email & !password) {
       alert("please add data.");
@@ -17,57 +18,68 @@ const Authentication = (props) => {
     }
     const user = { email: email, password: password };
     props.login(user);
-
+    setUser(user);
     setEmail("");
     setPassword("");
   };
 
   const logout = () => {
     props.logout();
+    setUser();
   };
 
-  return (
-    <div>
-      <form className="login-signup-form" onSubmit={onSubmit}>
-        <div className="form-control">
+  if (user) {
+    return (
+      <div>
+        {user.email} is loggged in
+        <button onClick={() => logout()}>logout</button>
+      </div>
+    );
+  }
+  if (!user) {
+    return (
+      <div>
+        <form className="login-signup-form" onSubmit={handleSubmit}>
+          <div className="form-control">
+            <input
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-control">
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
           <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="submit"
+            value="Signin"
+            className="btn-submit btn-submit-left"
           />
-        </div>
-        <div className="form-control">
           <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="button"
+            value="Signup"
+            className="btn-submit btn-submit-right"
+            onClick={() => {
+              history.push("/user/signup");
+            }}
           />
-        </div>
-        <input
-          type="submit"
-          value="Signin"
-          className="btn-submit btn-submit-left"
-        />
-        <input
-          type="button"
-          value="Signup"
-          className="btn-submit btn-submit-right"
-          onClick={() => {
-            history.push("/user/signup");
-          }}
-        />
-      </form>
-      <button onClick={() => logout()}>logout</button>
-    </div>
-  );
+        </form>
+      </div>
+    );
+  }
 };
 
 const mapActionToProps = (dispatch) => {
   return {
     login: (user) => {
-      dispatch(authentificationActions.login(user));
+      const b = dispatch(authentificationActions.login(user));
+      console.log(b);
     },
     logout: (user) => {
       dispatch(authentificationActions.logout(user));
