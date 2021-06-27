@@ -1,11 +1,13 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { useStore } from "react-redux";
+import { useStore, connect } from "react-redux";
+import * as foodActions from "../../../../../store/actions/food-actions";
 
-const EditFood = () => {
+const EditFood = (props) => {
   let { id } = useParams();
   const store = useStore();
 
+  const [foodId, setFoodId] = useState("");
   const [name, setName] = useState("");
   const [baseAmount, setBaseAmount] = useState("");
   const [energy, setEnergy] = useState("");
@@ -19,8 +21,10 @@ const EditFood = () => {
   const [food, setFood] = useState("");
 
   useEffect(() => {
-    for (let i = 0; i < store.getState().foods.length; i++) {
-      if (store.getState().foods[i]._id === id) {
+    const foodsFromState = store.getState().foodReducer.foods;
+    for (let i = 0; i < foodsFromState.length; i++) {
+      if (foodsFromState[i]._id === id) {
+        setFoodId(id);
         setName(food.name);
         setBaseAmount(food.baseAmount);
         setEnergy(food.energy);
@@ -31,10 +35,10 @@ const EditFood = () => {
         setFiber(food.fiber);
         setDrink(food.drink);
 
-        setFood(store.getState().foods[i]);
+        setFood(foodsFromState[i]);
       }
     }
-  });
+  }, [food, store]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +46,33 @@ const EditFood = () => {
       alert("please add data.");
       return;
     }
+
+    const newFood = {
+      foodId: foodId,
+      name: name,
+      baseAmount: baseAmount,
+      energy: energy,
+      fat: fat,
+      carbohydrates: carbohydrates,
+      protein: protein,
+      salt: salt,
+      fiber: fiber,
+      drink: drink,
+    };
+    // console.log(newFood);
+    //  setFood(newFood);
+    props.putFood(newFood);
+    // console.log(e);
+    setFoodId("");
+    setName("");
+    setBaseAmount("");
+    setEnergy("");
+    setFat("");
+    setCarbohydrates("");
+    setProtein("");
+    setDrink(false);
+    setSalt("");
+    setFiber("");
   };
 
   return (
@@ -155,4 +186,11 @@ const EditFood = () => {
   );
 };
 
-export default EditFood;
+const mapActionToProps = (dispatch) => {
+  return {
+    putFood: (food) => {
+      dispatch(foodActions.putFood(food));
+    },
+  };
+};
+export default connect(null, mapActionToProps)(EditFood);

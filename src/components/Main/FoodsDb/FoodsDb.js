@@ -1,6 +1,6 @@
 import Foods from "./Foods/Foods";
 import { connect } from "react-redux";
-import React, { Component } from "react";
+import React from "react";
 import * as foodActions from "../../../store/actions/food-actions";
 
 const FoodsDb = (props) => {
@@ -8,12 +8,16 @@ const FoodsDb = (props) => {
     props.deleteFood(id);
   };
 
-  let foods = null;
   if (props.foods) {
     let foods = props.foods;
     return (
       <div>
-        <Foods foods={foods} onDelete={onDelete} />
+        <Foods
+          foods={foods}
+          onDelete={onDelete}
+          isTracker={props.isTracker}
+          onAdd={props.onAdd}
+        />
       </div>
     );
   } else {
@@ -35,7 +39,7 @@ const mapActionToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    foods: state.reducer.foods,
+    foods: state.foodReducer.foods,
   };
 };
 export default connect(mapStateToProps, mapActionToProps)(FoodsDb);

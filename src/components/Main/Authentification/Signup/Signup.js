@@ -46,10 +46,6 @@ const Signup = (props, { isSignInComponent }) => {
     props.signup(newUser);
   };
 
-  const signup = () => {
-    props.signup();
-  };
-
   return (
     <form className="login-signup-form" onSubmit={onSubmit}>
       <div className="form-control">

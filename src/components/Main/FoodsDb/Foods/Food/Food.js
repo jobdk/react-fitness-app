@@ -1,7 +1,7 @@
 import React from "react";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash, BsFillPlusCircleFill } from "react-icons/bs";
 
-const Food = ({ food, onEdit, onDelete }) => {
+const Food = ({ food, onEdit, onDelete, isTracker, onAdd }) => {
   return (
     <div className="food-grid-container">
       <div>
@@ -22,24 +22,33 @@ const Food = ({ food, onEdit, onDelete }) => {
       <div>
         <h3>{food.protein}</h3>
       </div>
-      <div>
-        <h3>
-          <span
-            onClick={() => {
-              onEdit(food._id);
-            }}
-          >
-            <BsPencilSquare />
-          </span>
-          <span
-            onClick={() => {
-              onDelete(food._id);
-            }}
-          >
-            <BsTrash />
-          </span>
-        </h3>
-      </div>
+      {isTracker ? (
+        <div>
+          <BsFillPlusCircleFill
+            className="plus-icon"
+            onClick={() => onAdd(food)}
+          />
+        </div>
+      ) : (
+        <div>
+          <h3>
+            <span
+              onClick={() => {
+                onEdit(food._id);
+              }}
+            >
+              <BsPencilSquare />
+            </span>
+            <span
+              onClick={() => {
+                onDelete(food._id);
+              }}
+            >
+              <BsTrash />
+            </span>
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

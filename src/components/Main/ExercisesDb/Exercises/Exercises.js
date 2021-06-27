@@ -3,7 +3,7 @@ import Exercise from "./Exercise/Exercise";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 
-const Exercises = ({ exercises, onDelete }) => {
+const Exercises = ({ exercises, onDelete, isTracker, onAdd }) => {
   let history = useHistory();
 
   return (
@@ -30,16 +30,22 @@ const Exercises = ({ exercises, onDelete }) => {
               pathname: "/exercise/edit/" + id,
             })
           }
+          isTracker={isTracker}
+          onAdd={onAdd}
         />
       ))}
-      <BsFillPlusCircleFill
-        className="plus-icon"
-        onClick={(id) =>
-          history.push({
-            pathname: "/exercise/add/",
-          })
-        }
-      />
+      {isTracker ? (
+        ""
+      ) : (
+        <BsFillPlusCircleFill
+          className="plus-icon"
+          onClick={(id) =>
+            history.push({
+              pathname: "/exercise/add/",
+            })
+          }
+        />
+      )}
     </div>
   );
 };

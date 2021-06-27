@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useHistory, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as authenticationActions from "../../../../store/actions/authentication-actions";
 
@@ -7,8 +6,6 @@ const Signin = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState();
-
-  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();

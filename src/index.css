@@ -36,8 +36,8 @@ code {
 }
 .btn-submit {
   display: inline-block;
-  background: #000;
-  color: #fff;
+  background: var(--main-color);
+  color: var(--secondary-color);
   border: none;
   padding: 10px 20px;
   /* margin: 5px; */
@@ -57,7 +57,7 @@ code {
   grid-template-rows: 10%;
   /* gap: 0px 0px; */
   grid-template-areas: ". . . . . . .";
-  background: #f4f4f4;
+  background: var(--tertiary-color);
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
@@ -69,7 +69,7 @@ code {
   grid-template-rows: 10%;
   /* gap: 0px 0px; */
   grid-template-areas: ". . . .";
-  background: #f4f4f4;
+  background: var(--tertiary-color);
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
@@ -92,7 +92,7 @@ label {
   grid-template-rows: 10%;
   /* gap: 0px 0px; */
   grid-template-areas: ". . . . . .";
-  background: #f4f4f4;
+  background: var(--tertiary-color);
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;

@@ -7,12 +7,16 @@ const ExercisesDb = (props) => {
     props.deleteExercise(id);
   };
 
-  let exercises = null;
   if (props.exercises) {
-    exercises = props.exercises;
+    let exercises = props.exercises;
     return (
       <div>
-        <Exercises exercises={exercises} onDelete={onDelete} />
+        <Exercises
+          exercises={exercises}
+          onDelete={onDelete}
+          isTracker={props.isTracker}
+          onAdd={props.onAdd}
+        />
       </div>
     );
   } else {
@@ -34,7 +38,7 @@ const mapActionToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    exercises: state.reducer.exercises,
+    exercises: state.exerciseReducer.exercises,
   };
 };
 

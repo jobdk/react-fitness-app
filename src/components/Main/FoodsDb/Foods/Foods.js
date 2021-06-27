@@ -3,7 +3,7 @@ import Food from "./Food/Food";
 import { useHistory } from "react-router-dom";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 
-const Foods = ({ foods, onDelete }) => {
+const Foods = ({ foods, onDelete, isTracker, onAdd }) => {
   let history = useHistory();
 
   return (
@@ -39,16 +39,22 @@ const Foods = ({ foods, onDelete }) => {
               pathname: "/food/edit/" + id,
             })
           }
+          isTracker={isTracker}
+          onAdd={onAdd}
         />
       ))}
-      <BsFillPlusCircleFill
-        className="plus-icon"
-        onClick={(id) =>
-          history.push({
-            pathname: "/food/add/" + id,
-          })
-        }
-      />
+      {isTracker ? (
+        ""
+      ) : (
+        <BsFillPlusCircleFill
+          className="plus-icon"
+          onClick={(id) =>
+            history.push({
+              pathname: "/food/add/" + id,
+            })
+          }
+        />
+      )}
     </div>
   );
 };

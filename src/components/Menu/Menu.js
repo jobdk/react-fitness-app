@@ -2,56 +2,60 @@ import React from "react";
 import "./Menu.css";
 import { slide as Burgermenu } from "react-burger-menu";
 import { BsFillPersonFill } from "react-icons/bs";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const Menu = (props) => {
-  let history = useHistory();
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  };
+
   return (
     <div>
-      <Burgermenu {...props.pageWrapId}>
-        <a
+      <Burgermenu
+        {...props.pageWrapId}
+        isOpen={isBurgerMenuOpen}
+        onStateChange={(state) => setIsBurgerMenuOpen(state.isOpen)}
+      >
+        <NavLink
           className="menu-item"
-          onClick={() => {
-            history.push("/foodsdb");
-          }}
-        >
-          FoodDB
-        </a>
-
-        <a
-          className="menu-item"
-          onClick={() => {
-            history.push("/exerciseDb");
-          }}
-        >
-          ExerciseDB
-        </a>
-
-        <a
-          className="menu-item"
-          onClick={() => {
-            history.push("/profiles");
-          }}
-        >
-          Profiles
-        </a>
-
-        <a
-          className="menu-item"
-          onClick={() => {
-            history.push("/tracker");
-          }}
+          to={"/tracker"}
+          onClick={() => toggleMenu()}
         >
           Tracker
-        </a>
-        <a
+        </NavLink>
+        <NavLink
           className="menu-item"
-          onClick={() => {
-            history.push("/user/authentication");
-          }}
+          to={"/foodsdb"}
+          onClick={() => toggleMenu()}
+        >
+          FoodDB
+        </NavLink>
+
+        <NavLink
+          className="menu-item"
+          to={"/exerciseDb"}
+          onClick={() => toggleMenu()}
+        >
+          ExerciseDB
+        </NavLink>
+
+        <NavLink
+          className="menu-item"
+          to={"/profiles"}
+          onClick={() => toggleMenu()}
+        >
+          Profiles
+        </NavLink>
+        <NavLink
+          className="menu-item"
+          to={"/user/authentication"}
+          onClick={() => toggleMenu()}
         >
           <BsFillPersonFill />
-        </a>
+        </NavLink>
       </Burgermenu>
     </div>
   );

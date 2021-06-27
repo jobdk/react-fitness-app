@@ -17,7 +17,6 @@ import EditProfile from "./components/Main/ProfilesDb/Profiles/Profile/EditProfi
 import { connect } from "react-redux";
 import * as exerciseActions from "./store/actions/exercise-actions";
 import * as foodActions from "././store/actions/food-actions";
-import { isUserLoggedIn } from "./utils/FunctionUtils";
 import Layout from "./components/Layout/Layout";
 
 class App extends Component {

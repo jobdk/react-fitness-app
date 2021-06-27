@@ -55,3 +55,17 @@ export const postProfile = (profile) => {
       });
   };
 };
+
+export const putProfile = (profile) => {
+  return (dispatch) => {
+    axios
+      .put("/fitness/profile/", profile, { withCredentials: true })
+      .then((response) => {
+        console.log(response);
+        //dispatch(storeProfiles(response.data));
+      })
+      .catch((error) => {
+        alert(error.response.data);
+      });
+  };
+};

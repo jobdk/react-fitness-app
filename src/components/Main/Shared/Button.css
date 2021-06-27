@@ -1,6 +1,6 @@
 .btn {
   display: inline-block;
-  background: #0000;
+  background: var(--main-color);
   border: solid;
   border-width: 0.1px;
   padding: 10% 10%;

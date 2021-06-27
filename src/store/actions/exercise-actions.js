@@ -52,3 +52,17 @@ export const postExercise = (exercise) => {
       });
   };
 };
+
+export const putExercise = (exercise) => {
+  return (dispatch) => {
+    axios
+      .put("/fitness/exercise/", exercise, { withCredentials: true })
+      .then((response) => {
+        console.log(response);
+        //dispatch(storeExercise(response.data));
+      })
+      .catch((error) => {
+        alert(error.response.data);
+      });
+  };
+};

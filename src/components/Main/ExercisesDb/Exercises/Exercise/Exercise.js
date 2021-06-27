@@ -1,7 +1,7 @@
 import React from "react";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash, BsFillPlusCircleFill } from "react-icons/bs";
 
-export const Exercise = ({ exercise, onDelete, onEdit }) => {
+export const Exercise = ({ exercise, onEdit, onDelete, isTracker, onAdd }) => {
   return (
     <div className="exercise-grid-container">
       <div>
@@ -13,24 +13,34 @@ export const Exercise = ({ exercise, onDelete, onEdit }) => {
       <div>
         <h3>{exercise.energyBurned}</h3>
       </div>
-      <div>
-        <h3>
-          <span>
-            <BsPencilSquare
-              onClick={() => {
-                onEdit(exercise._id);
-              }}
-            />
-          </span>
-          <span>
-            <BsTrash
-              onClick={() => {
-                onDelete(exercise._id);
-              }}
-            />
-          </span>
-        </h3>
-      </div>
+
+      {isTracker ? (
+        <div>
+          <BsFillPlusCircleFill
+            className="plus-icon"
+            onClick={() => onAdd(exercise)}
+          />
+        </div>
+      ) : (
+        <div>
+          <h3>
+            <span>
+              <BsPencilSquare
+                onClick={() => {
+                  onEdit(exercise._id);
+                }}
+              />
+            </span>
+            <span>
+              <BsTrash
+                onClick={() => {
+                  onDelete(exercise._id);
+                }}
+              />
+            </span>
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { useStore } from "react-redux";
+import { useStore, connect } from "react-redux";
+import * as profileActions from "../../../../../../store/actions/profile-actions";
 
-const EditProfile = () => {
+const EditProfile = (props) => {
   let { id } = useParams();
   const store = useStore();
 
+  const [profileId, setProfileId] = useState("");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
@@ -16,9 +18,11 @@ const EditProfile = () => {
   const [profile, setProfile] = useState("");
 
   useEffect(() => {
-    for (let i = 0; i < store.getState().profiles.length; i++) {
-      if (store.getState().profiles[i]._id === id) {
-        setProfile(store.getState().profiles[i]);
+    const profilesFromState = store.getState().profileReducer.profiles;
+    for (let i = 0; i < profilesFromState.length; i++) {
+      if (profilesFromState[i]._id === id) {
+        setProfile(profilesFromState[i]);
+        setProfileId(id);
         setName(profile.name);
         setAge(profile.age);
         setHeight(profile.height);
@@ -26,10 +30,10 @@ const EditProfile = () => {
         setSex(profile.sex);
         setUserId(profile.userId);
 
-        // setProfile(store.getState().profiles[i]);
+        // setProfile(profilesFromState[i]);
       }
     }
-  });
+  }, [profile, store]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +41,25 @@ const EditProfile = () => {
       alert("please add data.");
       return;
     }
+
+    const editedProfile = {
+      profileId: profileId,
+      name: name,
+      age: age,
+      height: height,
+      weight: weight,
+      sex: sex,
+      userId: userId,
+    };
+
+    props.putProfile(editedProfile);
+    setProfileId("");
+    setName("");
+    setAge("");
+    setHeight("");
+    setWeight("");
+    setSex("");
+    setUserId("");
   };
 
   return (
@@ -104,5 +127,12 @@ const EditProfile = () => {
     </form>
   );
 };
+const mapActionToProps = (dispatch) => {
+  return {
+    putProfile: (profile) => {
+      dispatch(profileActions.putProfile(profile));
+    },
+  };
+};
 
-export default EditProfile;
+export default connect(null, mapActionToProps)(EditProfile);

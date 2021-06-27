@@ -1,7 +1,7 @@
 import Profiles from "./Profiles/Profiles";
 import { connect } from "react-redux";
 import * as profileActions from "../../../store/actions/profile-actions";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 const ProfilesDb = (props) => {
   const onDelete = (id) => {
@@ -10,9 +10,8 @@ const ProfilesDb = (props) => {
 
   useEffect(() => {
     props.getProfiles();
-  });
+  }, []);
 
-  let profiles = null;
   if (props.profiles) {
     let profiles = props.profiles;
     return (
@@ -42,7 +41,7 @@ const mapActionToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    profiles: state.reducer.profiles,
+    profiles: state.profileReducer.profiles,
   };
 };
 export default connect(mapStateToProps, mapActionToProps)(ProfilesDb);
