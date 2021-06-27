@@ -47,7 +47,7 @@ const Menu = (props) => {
         <a
           className="menu-item"
           onClick={() => {
-            history.push("/user/signin");
+            history.push("/user/authentication");
           }}
         >
           <BsFillPersonFill />

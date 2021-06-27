@@ -8,10 +8,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  height: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#root {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 .form-control {
   margin: 20px 0;
 }

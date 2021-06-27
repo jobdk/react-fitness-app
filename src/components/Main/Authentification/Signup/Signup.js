@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
-import * as authentificationActions from "../../../../store/actions/authentification-actions";
+import * as authenticationActions from "../../../../store/actions/authentication-actions";
 
-const Signup = (props) => {
+const Signup = (props, { isSignInComponent }) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [street, setStreet] = useState("");
@@ -129,6 +129,14 @@ const Signup = (props) => {
         value="Signup"
         className="btn-submit btn-submit-left"
       />
+      <input
+        type="button"
+        value="Account exists"
+        className="btn-submit btn-submit-right"
+        onClick={() => {
+          props.onToggle();
+        }}
+      />
     </form>
   );
 };
@@ -137,7 +145,7 @@ const mapActionToProps = (dispatch) => {
   return {
     signup: (user) => {
       console.log(user);
-      dispatch(authentificationActions.signup(user));
+      dispatch(authenticationActions.signup(user));
     },
   };
 };

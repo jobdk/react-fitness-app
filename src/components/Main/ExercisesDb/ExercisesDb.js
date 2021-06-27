@@ -34,7 +34,7 @@ const mapActionToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    exercises: state.exercises,
+    exercises: state.reducer.exercises,
   };
 };
 

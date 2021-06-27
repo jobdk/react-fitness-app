@@ -1,0 +1,5 @@
+export const Types = {
+  LOGIN: "LOGIN",
+  SIGNUP: "ADD_USER",
+  FORM_SUBMITION_STATUS: "FORM_SUBMITION_STATUS",
+};

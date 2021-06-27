@@ -42,7 +42,7 @@ const mapActionToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    profiles: state.profiles,
+    profiles: state.reducer.profiles,
   };
 };
 export default connect(mapStateToProps, mapActionToProps)(ProfilesDb);

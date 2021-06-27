@@ -22,7 +22,7 @@ const EditExercise = () => {
         setExercise(store.getState().exercises[i]);
       }
     }
-  });
+  }, [exercise, store]);
 
   const onSubmit = (e) => {
     e.preventDefault();

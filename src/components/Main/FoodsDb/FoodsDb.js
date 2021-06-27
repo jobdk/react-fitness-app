@@ -35,7 +35,7 @@ const mapActionToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    foods: state.foods,
+    foods: state.reducer.foods,
   };
 };
 export default connect(mapStateToProps, mapActionToProps)(FoodsDb);

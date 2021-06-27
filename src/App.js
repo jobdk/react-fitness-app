@@ -1,12 +1,12 @@
 import "./App.css";
-import Menu from "./components/Menu/Menu";
+
 import React, { Component } from "react";
 import FoodsDb from "./components/Main/FoodsDb/FoodsDb";
 import ExercisesDb from "./components/Main/ExercisesDb/ExercisesDb";
 import ProfilesDb from "./components/Main/ProfilesDb/ProfilesDb";
 import Tracker from "./components/Main/Tracker/Tracker";
-import { Switch, Route } from "react-router-dom";
-import Authentication from "./components/Main/Authentification/Authentification";
+import { Switch, Route, Redirect } from "react-router-dom";
+import authentication from "./components/Main/Authentification/Authentification";
 import Signup from "./components/Main/Authentification/Signup/Signup";
 import EditFood from "./components/Main/FoodsDb/Foods/EditFood/EditFood";
 import AddFood from "./components/Main/FoodsDb/Foods/AddFood/AddFood";
@@ -17,6 +17,8 @@ import EditProfile from "./components/Main/ProfilesDb/Profiles/Profile/EditProfi
 import { connect } from "react-redux";
 import * as exerciseActions from "./store/actions/exercise-actions";
 import * as foodActions from "././store/actions/food-actions";
+import { isUserLoggedIn } from "./utils/FunctionUtils";
+import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   componentDidMount() {
@@ -30,7 +32,7 @@ class App extends Component {
       <Route path="/exerciseDb" component={ExercisesDb} />
       <Route path="/profiles" component={ProfilesDb} />
       <Route path="/tracker" component={Tracker} />
-      <Route path="/user/signin" component={Authentication} />
+      <Route path="/user/authentication" component={authentication} />
       <Route path="/user/signup" component={Signup} />
       <Route path="/food/edit/:id" component={EditFood} />
       <Route path="/food/add/" component={AddFood} />
@@ -38,19 +40,12 @@ class App extends Component {
       <Route path="/exercise/add/" component={AddExercise} />
       <Route path="/profile/add" component={NewProfile} />
       <Route path="/profile/edit/:id" component={EditProfile} />
+      <Redirect to="/" />
     </Switch>
   );
 
   render() {
-    return (
-      <div className="App">
-        <Menu pageWrapId={"page-wrap"} outerContainerId={"App"} />
-        <div id="page-wrap">
-          <h1>FitTrack</h1>
-          {this.routes}
-        </div>
-      </div>
-    );
+    return <Layout>{this.routes}</Layout>;
   }
 }
 
