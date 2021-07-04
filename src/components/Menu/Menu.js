@@ -21,11 +21,18 @@ const Menu = (props) => {
       >
         <NavLink
           className="menu-item"
+          to={"/profiles"}
+          onClick={() => toggleMenu()}
+        >
+          Profiles
+        </NavLink>
+        {/* <NavLink
+          className="menu-item"
           to={"/tracker"}
           onClick={() => toggleMenu()}
         >
           Tracker
-        </NavLink>
+        </NavLink> */}
         <NavLink
           className="menu-item"
           to={"/foodsdb"}
@@ -42,13 +49,6 @@ const Menu = (props) => {
           ExerciseDB
         </NavLink>
 
-        <NavLink
-          className="menu-item"
-          to={"/profiles"}
-          onClick={() => toggleMenu()}
-        >
-          Profiles
-        </NavLink>
         <NavLink
           className="menu-item"
           to={"/user/authentication"}

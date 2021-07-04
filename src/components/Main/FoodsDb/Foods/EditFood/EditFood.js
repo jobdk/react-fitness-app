@@ -59,6 +59,7 @@ const EditFood = (props) => {
       fiber: fiber,
       drink: drink,
     };
+
     // console.log(newFood);
     //  setFood(newFood);
     props.putFood(newFood);

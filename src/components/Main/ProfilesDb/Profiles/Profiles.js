@@ -36,6 +36,11 @@ const Profiles = ({ profiles, onDelete }) => {
               pathname: "/profile/edit/" + id,
             })
           }
+          onSelectProfile={(id) => {
+            history.push({
+              pathname: "/profile/tracker/" + id,
+            });
+          }}
         />
       ))}
       <BsFillPlusCircleFill

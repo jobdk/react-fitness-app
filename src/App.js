@@ -30,7 +30,7 @@ class App extends Component {
       <Route path="/foodsdb" component={FoodsDb} />
       <Route path="/exerciseDb" component={ExercisesDb} />
       <Route path="/profiles" component={ProfilesDb} />
-      <Route path="/tracker" component={Tracker} />
+      <Route path="/profile/tracker/:id" component={Tracker} />
       <Route path="/user/authentication" component={authentication} />
       <Route path="/user/signup" component={Signup} />
       <Route path="/food/edit/:id" component={EditFood} />

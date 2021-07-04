@@ -1,17 +1,6 @@
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 
-const Profile = ({ profile, onDelete, onEdit }) => {
-  /*
-{
-    "name": "Me",
-    "age": 66,
-    "height": 200,
-    "weight": 70,
-    "sex": 1,
-    "userId": "6009590ae432bda6a283446d"
-}
-*/
-
+const Profile = ({ profile, onDelete, onEdit, onSelectProfile }) => {
   return (
     <div className="profile-grid-container">
       <div>
@@ -46,6 +35,11 @@ const Profile = ({ profile, onDelete, onEdit }) => {
             />
           </span>
         </h3>
+      </div>
+      <div>
+        <span onClick={() => onSelectProfile(profile._id)}>
+          <h3>track</h3>
+        </span>
       </div>
     </div>
   );

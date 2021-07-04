@@ -88,10 +88,10 @@ label {
 
 .profile-grid-container {
   display: grid;
-  grid-template-columns: 25% 12.5% 12.5% 12.5% 12.5% 12.5%;
+  grid-template-columns: 25% 11.5% 11.5% 11.5% 11.5% 11.5% 5%;
   grid-template-rows: 10%;
   /* gap: 0px 0px; */
-  grid-template-areas: ". . . . . .";
+  grid-template-areas: ". . . . . . .";
   background: var(--tertiary-color);
   margin: 5px;
   padding: 10px 20px;

@@ -7,14 +7,14 @@ export const SUCCESS_SIGN_UP = "SUCCESS_SIGN_UP";
 export const FAILED_LOGIN = "FAILED_LOGIN";
 export const SUCCESS_LOGIN = "SUCCESS_LOGIN";
 
-const loginSuccess = (loginMessage) => {
-  return { type: SUCCESS_LOGIN, payload: { loginMessage } };
+const loginSuccess = (loginResponse) => {
+  return { type: SUCCESS_LOGIN, payload: { loginResponse } };
 };
-const loginFailed = (signInMessage) => {
+const loginFailed = (loginResponse) => {
   return {
     type: FAILED_LOGIN,
     payload: {
-      signInMessage,
+      loginResponse,
     },
   };
 };
@@ -32,11 +32,11 @@ export const login = (user) => {
   };
 };
 
-const logoutSuccess = (logoutMessage) => {
+const logoutSuccess = (logoutResponse) => {
   return {
     type: SUCCESS_LOGOUT,
     payload: {
-      logoutMessage,
+      logoutResponse,
     },
   };
 };
@@ -60,20 +60,20 @@ export const logout = () => {
   };
 };
 
-const signUpSuccess = (signUpMessage) => {
+const signUpSuccess = (signUpResponse) => {
   return {
     type: SUCCESS_SIGN_UP,
     payload: {
-      signUpMessage,
+      signUpResponse,
     },
   };
 };
 
-const signUpFailed = (signUpMessage) => {
+const signUpFailed = (signUpResponse) => {
   return {
     type: FAILED_SIGN_UP,
     payload: {
-      signUpMessage,
+      signUpResponse,
     },
   };
 };
