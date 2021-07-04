@@ -1,26 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MyDayFoods from "./MyDayFoods/MyDayFoods";
+import MyDayExercises from "./MyDayExercises/MyDayExercises";
 
 const MyDay = ({ selectedDate, currentDay }) => {
-  const getSelectedDay = () => {
-    console.log(selectedDate);
-    console.log(currentDay.getDayResponse[0]);
-  };
-
-  // {selectedDate}
-
   return (
     <div>
       My Day
       <div>
-        {currentDay.food > 0 ? (
-          <MyDayFoods foods={currentDay.food} />
-        ) : (
-          "no food added"
-        )}
+        <MyDayFoods foods={currentDay.food} />
       </div>
-      <div></div>
+      <div>
+        <MyDayExercises exercises={currentDay.exercise} />
+      </div>
       <div></div>
       <div></div>
       <div></div>

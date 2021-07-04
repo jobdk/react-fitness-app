@@ -5,7 +5,7 @@ const MyDayFoods = ({ foods }) => {
   return (
     <div>
       {foods.map((food) => (
-        <MyDayFood key={food._id} food={food} />
+        <MyDayFood key={food.foodId} food={food} />
       ))}
     </div>
   );

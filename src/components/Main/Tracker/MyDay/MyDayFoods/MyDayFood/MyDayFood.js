@@ -4,7 +4,7 @@ import { useStore } from "react-redux";
 import { useState, useEffect } from "react";
 
 const MyDayFood = ({ food }) => {
-  if (food) console.log(food);
+  // if (food) console.log(food);
 
   const [foodAmount, setFoodAmount] = useState(food.amount);
   const store = useStore();
@@ -22,6 +22,9 @@ const MyDayFood = ({ food }) => {
         setName(foodsFromState[i].name);
         setBaseAmount(foodsFromState[i].baseAmount);
         setEnergy(foodsFromState[i].energy);
+      }
+      if (name === "") {
+        console.log("food not found. FoodId = " + food.foodId);
       }
     }
   }, [food, store, foodId]);
