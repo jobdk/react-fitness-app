@@ -2,9 +2,9 @@ import React from "react";
 import { useParams } from "react-router";
 import Calendar from "react-calendar";
 import { useState, useEffect } from "react";
-import FoodsDb from "../../FoodsDb/FoodsDb";
-import ExercisesDb from "../../ExercisesDb/ExercisesDb";
-import * as trackerActions from "../../../../store/actions/tracker-actions";
+import FoodsDb from "../FoodsDb/FoodsDb";
+import ExercisesDb from "../ExercisesDb/ExercisesDb";
+import * as trackerActions from "../../../store/actions/tracker-actions";
 import MyDay from "./MyDay/MyDay";
 import { useStore, connect, useDispatch, useSelector } from "react-redux";
 
