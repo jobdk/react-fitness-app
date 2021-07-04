@@ -14,7 +14,11 @@ const MyDay = ({ selectedDate, currentDay }) => {
     <div>
       My Day
       <div>
-        <MyDayFoods foods={currentDay.getDayResponse[0].food} />
+        {currentDay.food > 0 ? (
+          <MyDayFoods foods={currentDay.food} />
+        ) : (
+          "no food added"
+        )}
       </div>
       <div></div>
       <div></div>

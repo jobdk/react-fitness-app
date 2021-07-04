@@ -11,45 +11,42 @@ import { useStore, connect } from "react-redux";
 const Tracker = (props) => {
   let { id } = useParams();
   const store = useStore();
-
+  let profile;
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentDayBuffer, setCurrentDayBuffer] = useState(null);
+  const [currentDayBuffer, setCurrentDayBuffer] = useState();
   const [foods, setFoods] = useState(null);
-
 
   useEffect(() => {
     formatDateTime();
     getDay();
     retrieveProfileFromUrl();
     checkCurrentDay();
-   
-    console.log(currentDayBuffer);
+
+    // console.log(currentDayBuffer);
   }, []);
 
   const checkCurrentDay = () => {
-    if(store.getState().trackerReducer.currentDay===null){
+    if (
+      store.getState().trackerReducer.currentDay.getDayResponse.length > 0
+      // & (store.getState().trackerReducer.currentDay === null)
+    ) {
+      setCurrentDayBuffer(
+        store.getState().trackerReducer.currentDay.getDayResponse[0]
+      );
+      console.log("day found");
+      console.log(store.getState().trackerReducer.currentDay.getDayResponse[0]);
+    } else {
       let newDay = {
-        date: selectedDate,
-food: [
-],
-exercise: [
-   
-],
-profileId: "60617f5a853a921edccb8fbf",
-"__v": 0
-}
-
-
-      }
+        date: Math.floor(selectedDate.getTime() / 1000),
+        food: [],
+        exercise: [],
+        profileId: "60617f5a853a921edccb8fbf",
+      };
       setCurrentDayBuffer(newDay);
+      console.log("day not found");
+      console.log(currentDayBuffer);
     }
-
-    // setCurrentDayBuffer(
-    //    != null
-    //     ? store.getState().trackerReducer.currentDay.getDayResponse[0][0]
-    //     : null
-    // );
-  }
+  };
 
   // sets time to 00:00:00
   const formatDateTime = () => {
@@ -60,7 +57,7 @@ profileId: "60617f5a853a921edccb8fbf",
 
   const handleDayChange = () => {
     getDay(id);
-    setCurrentDayBuffer(store.getState().trackerReducer.currentDay);
+    checkCurrentDay();
     console.log(Math.floor(selectedDate.getTime() / 1000));
     console.log(store.getState().trackerReducer.currentDay);
   };
@@ -105,23 +102,15 @@ profileId: "60617f5a853a921edccb8fbf",
         />
       </div>
       <input value={selectedDate} />
-      {(store.getState().trackerReducer.currentDay != null) &
-      (store.getState().trackerReducer.currentDay.getDayResponse > 0) ? (
-        <MyDay
-          selectedDate={selectedDate.toString()}
-          currentDay={store.getState().trackerReducer.currentDay}
-        />
-      ) : (
-        <h4>
-          by clicking on a food or exercise icon you can add them to your day
-        </h4>
-      )}
-
-      <h3>add a food or exercise</h3>
+      <MyDay
+        selectedDate={selectedDate.toString()}
+        currentDay={currentDayBuffer}
+      />
+      {/* <h3>add a food or exercise</h3>
       <h3>food</h3>
       <FoodsDb isTracker={true} onAdd={onAddFood} />
       <h3>exercise</h3>
-      <ExercisesDb isTracker={true} onAdd={onAddExercise} />
+      <ExercisesDb isTracker={true} onAdd={onAddExercise} /> */}
     </div>
   );
 };
