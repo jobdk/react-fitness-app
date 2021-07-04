@@ -29,32 +29,42 @@ const Tracker = (props) => {
   });
 
   const onAddFood = (food) => {
-    let buffer = currentDayBuffer;
+    let buffer = { ...currentDayBuffer };
     buffer.food[buffer.food.length] = { foodId: food._id, amount: 0 };
-    if (buffer.food.length > currentDayBuffer.food.length) {
-      setCurrentDayBuffer(buffer);
-    }
-    console.log(currentDayBuffer);
+    setCurrentDayBuffer(buffer);
   };
 
   const onAddExercise = (exercise) => {
-    let buffer = currentDayBuffer;
+    let buffer = { ...currentDayBuffer };
     buffer.exercise[buffer.exercise.length] = {
       exerciseId: exercise._id,
       timeInMinutes: 0,
     };
-    console.log(buffer);
-    if (buffer.exercise.length > currentDayBuffer.exercise.length) {
-      setCurrentDayBuffer(buffer);
-    }
-    console.log(currentDayBuffer);
+    setCurrentDayBuffer(buffer);
   };
 
+  const onDeleteFood = (food) => {
+    let buffer = { ...currentDayBuffer };
+    buffer.food = buffer.food.filter(
+      (bufferFood) => bufferFood.foodId !== food.foodId
+    );
+    setCurrentDayBuffer(buffer);
+  };
+
+  const onDeleteExercise = (exercise) => {
+    let buffer = { ...currentDayBuffer };
+    buffer.exercise = buffer.exercise.filter(
+      (bufferExercise) => bufferExercise.exerciseId !== exercise.exerciseId
+    );
+    setCurrentDayBuffer(buffer);
+  };
   return (
     <div>
       <MyDay
         selectedDate={currentDayBuffer.date}
         currentDay={currentDayBuffer}
+        onDeleteFood={onDeleteFood}
+        onDeleteExercise={onDeleteExercise}
       />
       <h3>add a food or exercise</h3>
       <h3>food</h3>

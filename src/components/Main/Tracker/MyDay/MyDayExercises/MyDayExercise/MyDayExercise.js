@@ -2,8 +2,9 @@ import React from "react";
 import "../../MyDay.css";
 import { useStore } from "react-redux";
 import { useState, useEffect } from "react";
+import { BsTrash } from "react-icons/bs";
 
-const MyDayExercise = ({ exercise }) => {
+const MyDayExercise = ({ exercise, onDeleteExercise }) => {
   // if (exercise) console.log(exercise);
 
   const store = useStore();
@@ -45,7 +46,15 @@ const MyDayExercise = ({ exercise }) => {
         <h3>{energyBurned}</h3>
       </div>
       <div>
-        <h3>remove</h3>
+        <h3>
+          <span
+            onClick={() => {
+              onDeleteExercise(exercise);
+            }}
+          >
+            <BsTrash />
+          </span>
+        </h3>
       </div>
     </div>
   );

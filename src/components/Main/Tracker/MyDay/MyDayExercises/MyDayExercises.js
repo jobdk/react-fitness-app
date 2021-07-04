@@ -1,11 +1,15 @@
 import React from "react";
 import MyDayExercise from "./MyDayExercise/MyDayExercise";
 
-const MyDayExercises = ({ exercises }) => {
+const MyDayExercises = ({ exercises, onDeleteExercise }) => {
   return (
     <div>
       {exercises.map((exercise) => (
-        <MyDayExercise key={exercise.exerciseId} exercise={exercise} />
+        <MyDayExercise
+          key={exercise.exerciseId}
+          exercise={exercise}
+          onDeleteExercise={onDeleteExercise}
+        />
       ))}
     </div>
   );

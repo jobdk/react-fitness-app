@@ -2,8 +2,9 @@ import React from "react";
 import "../../MyDay.css";
 import { useStore } from "react-redux";
 import { useState, useEffect } from "react";
+import { BsTrash } from "react-icons/bs";
 
-const MyDayFood = ({ food }) => {
+const MyDayFood = ({ food, onDeleteFood }) => {
   // if (food) console.log(food);
 
   const [foodAmount, setFoodAmount] = useState(food.amount);
@@ -16,15 +17,13 @@ const MyDayFood = ({ food }) => {
 
   useEffect(() => {
     const foodsFromState = store.getState().foodReducer.foods;
+
     for (let i = 0; i < foodsFromState.length; i++) {
       if (foodsFromState[i]._id === food.foodId) {
         setFoodId(foodId);
         setName(foodsFromState[i].name);
         setBaseAmount(foodsFromState[i].baseAmount);
         setEnergy(foodsFromState[i].energy);
-      }
-      if (name === "") {
-        console.log("food not found. FoodId = " + food.foodId);
       }
     }
   }, [food, store, foodId]);
@@ -47,7 +46,15 @@ const MyDayFood = ({ food }) => {
         <h3>{energy}</h3>
       </div>
       <div>
-        <h3>remove</h3>
+        <h3>
+          <span
+            onClick={() => {
+              onDeleteFood(food);
+            }}
+          >
+            <BsTrash />
+          </span>
+        </h3>
       </div>
     </div>
   );
