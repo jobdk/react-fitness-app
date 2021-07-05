@@ -13,19 +13,23 @@ import {
   calcMacros,
 } from "../../../utils/FunctionUtils";
 import MyDay from "./MyDay/MyDay";
-import { useStore, useDispatch, useSelector, connect } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 
 const Tracker = () => {
   const dispatch = useDispatch();
   let profile;
   let { id } = useParams();
-  const store = useStore();
+  const isLoading = useSelector((state) => state.trackerReducer.getDayLoading);
   const currentDayFromState = useSelector(
     (state) => state.trackerReducer.currentDay
   );
-  const profilesFromState = store.getState().profileReducer.profiles;
-  const foodsFromState = store.getState().foodReducer.foods;
-  const exercisesFromState = store.getState().exerciseReducer.exercises;
+  const profilesFromState = useSelector(
+    (state) => state.profileReducer.profiles
+  );
+  const foodsFromState = useSelector((state) => state.foodReducer.foods);
+  const exercisesFromState = useSelector(
+    (state) => state.exerciseReducer.exercises
+  );
   const [currentDate, setCurrentDate] = useState(new Date());
   const [totalCaloriesToEat, setTotalCaloriesToEat] = useState(0);
   const [caloriesEaten, setCaloriesEaten] = useState(0);
@@ -46,13 +50,13 @@ const Tracker = () => {
   });
   useEffect(() => {
     formatDateTime();
-    checkDispatch();
+    getDayFromBackend();
     retrieveProfileInformation();
   }, [
     currentDate,
     currentDayBuffer.date,
-    totalCaloriesToEat,
-    caloriesEaten,
+    // totalCaloriesToEat
+    // caloriesEaten,
     caloriesBurned,
   ]);
 
@@ -60,24 +64,6 @@ const Tracker = () => {
     dispatch(
       trackerActions.getDay(id, Math.floor(currentDate.getTime() / 1000))
     );
-  };
-
-  const checkDispatch = async () => {
-    getDayFromBackend();
-    console.log(2);
-    if (currentDayFromState.getDayResponse.length > 0) {
-      const mappedDay = mapStoredDay(currentDayFromState.getDayResponse[0]);
-      setCurrentDayBuffer(mappedDay);
-    } else {
-      console.log("no day found.");
-      const newDay = {
-        date: Math.floor(currentDate.getTime() / 1000),
-        food: [],
-        exercise: [],
-        profileId: id,
-      };
-      setCurrentDayBuffer(newDay);
-    }
   };
 
   const retrieveProfileInformation = () => {
@@ -207,7 +193,9 @@ const Tracker = () => {
     setCurrentDayBuffer(buffer);
   };
 
-  return (
+  return isLoading ? (
+    <div>loading</div>
+  ) : (
     <div>
       <Calendar
         onChange={(e) => {
@@ -222,6 +210,11 @@ const Tracker = () => {
         onDeleteExercise={onDeleteExercise}
         onChangeFoodAmount={onChangeFoodAmount}
         onChangeExerciseAmount={onChangeExerciseAmount}
+        currentDayFromState={currentDayFromState}
+        mapStoredDay={mapStoredDay}
+        setCurrentDayBuffer={setCurrentDayBuffer}
+        currentDate={currentDate}
+        id={id}
       />
       <h4>current calories</h4>
       <div>
@@ -259,3 +252,33 @@ const mapActionToProps = (dispatch) => {
 };
 
 export default connect(null, mapActionToProps)(Tracker);
+// import { useState, useEffect } from "react";
+// import * as trackerActions from "../../../store/actions/tracker-actions";
+// import React from "react";
+// import { useStore, useDispatch, useSelector } from "react-redux";
+
+// const Tracker = () => {
+//   const store = useStore();
+//   const dispatch = useDispatch();
+//   const currentDayFromState = useSelector(
+//     (state) => state.trackerReducer.getDayLoading
+//   );
+//   useEffect(() => {
+//     dispatch(
+//       trackerActions.getDay(
+//         "60a3bdf21c21a538c62606dc",
+//         Math.floor(new Date().getTime() / 1000)
+//       )
+//     );
+//   }, []);
+//   if (currentDayFromState === false) {
+//     console.log("triggered");
+//     console.log(currentDayFromState);
+//     return <div>hello</div>;
+//   } else {
+//     console.log(currentDayFromState);
+//     return <div>whut</div>;
+//   }
+// };
+
+// export default Tracker;

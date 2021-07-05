@@ -4,7 +4,7 @@ const initialState = {
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "STOREPROFILES":
+    case "STORE_PROFILES":
       return { ...state, profiles: action.payload };
     default:
       return state;

@@ -1,5 +1,6 @@
 import axios from "../../axios-url";
 
+export const STORE_DAY_LOADING = "STORE_DAY_LOADING";
 export const STORE_DAY_SUCCESS = "STORE_DAY_SUCCESS";
 export const STORE_DAY_FAILED = "STORE_DAY_FAILED";
 export const STORE_DAYS_SUCCESS = "STORE_DAYS_SUCCESS";
@@ -19,9 +20,15 @@ const getDayFailed = (getDayResponse) => {
   return { type: STORE_DAY_FAILED, payload: { getDayResponse } };
 };
 
+const getDayLoading = (getDayLoadingResponse) => {
+  return { type: STORE_DAY_LOADING };
+};
+
 export const getDay = (profileId, date) => {
   const path = profileId + "/" + date;
+
   return (dispatch) => {
+    dispatch(getDayLoading());
     axios
       .get("/fitness/day/" + path, { withCredentials: true })
       .then((response) => {
@@ -29,8 +36,8 @@ export const getDay = (profileId, date) => {
         console.log(1);
       })
       .catch((error) => {
-        console.log(error.response.data);
-        dispatch(getDayFailed(error.response.data));
+        console.log(error.message);
+        dispatch(getDayFailed(error.message));
       });
   };
 };
@@ -51,8 +58,8 @@ export const getDays = (profileId) => {
         dispatch(getDaysSuccess(response.data));
       })
       .catch((error) => {
-        alert(error.response.data);
-        dispatch(getDaysFailed(error.response.data));
+        alert(error.message);
+        dispatch(getDaysFailed(error.message));
       });
   };
 };
@@ -80,8 +87,8 @@ export const deleteDay = (date) => {
         dispatch(deleteDaySuccess(response.data));
       })
       .catch((error) => {
-        dispatch(deleteDayFailed(error.data));
-        alert(error.response.data);
+        dispatch(deleteDayFailed(error.message));
+        alert(error.message);
       });
   };
 };
@@ -103,8 +110,8 @@ export const postDay = (day) => {
         dispatch(postDaySuccess(response.data));
       })
       .catch((error) => {
-        dispatch(postDayFailed(error.response.data));
-        alert(error.response.data);
+        dispatch(postDayFailed(error.message));
+        alert(error.message);
       });
   };
 };
@@ -126,8 +133,8 @@ export const putDay = (day) => {
         dispatch(putDaySuccess(response.data));
       })
       .catch((error) => {
-        dispatch(putDayFailed(error.response.data));
-        alert(error.response.data);
+        dispatch(putDayFailed(error.message));
+        alert(error.message);
       });
   };
 };

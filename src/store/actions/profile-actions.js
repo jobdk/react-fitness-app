@@ -1,6 +1,6 @@
 import axios from "../../axios-url";
 
-export const STORE_PROFILES = "STOREPROFILES";
+export const STORE_PROFILES = "STORE_PROFILES";
 
 const storeProfiles = (profiles) => {
   return {
