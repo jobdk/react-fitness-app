@@ -7,22 +7,24 @@ const Main = () => {
     <div>
       <div>
         <NavLink className="link" to={"/profiles"}>
-          Profiles
+          <h2>Profiles</h2>
         </NavLink>
       </div>
       <div className="nav-links">
         <NavLink className="link" to={"/foodsdb"}>
-          FoodDB
+          <h2>Foods</h2>
         </NavLink>
       </div>
 
       <div className="nav-links">
         <NavLink className="link" to={"/exerciseDb"}>
-          ExerciseDB
+          <h2> Exercises</h2>
         </NavLink>
       </div>
       <div className="nav-links">
-        <NavLink className="link" to={"/user/authentication"}></NavLink>
+        <NavLink className="link" to={"/user/authentication"}>
+          <h2>User</h2>
+        </NavLink>
       </div>
     </div>
   );

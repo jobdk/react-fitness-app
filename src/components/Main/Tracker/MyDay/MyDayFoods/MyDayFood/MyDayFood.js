@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 
 const MyDayFood = ({ food, onDeleteFood, onChangeFoodAmount }) => {
-  // if (food) console.log(food);
-
   const [foodAmount, setFoodAmount] = useState(food.amount);
   const store = useStore();
 
@@ -24,16 +22,15 @@ const MyDayFood = ({ food, onDeleteFood, onChangeFoodAmount }) => {
         setName(foodsFromState[i].name);
         setBaseAmount(foodsFromState[i].baseAmount);
         setEnergy(
-          (foodsFromState[i].energy / foodsFromState[i].baseAmount) * foodAmount
+          (
+            (foodsFromState[i].energy / foodsFromState[i].baseAmount) *
+            foodAmount
+          ).toFixed(1)
         );
       }
     }
   }, [food, store, foodId, foodAmount]);
 
-  // const onChangeFoodAmount1 = () => {
-  //   food.foodAmount=foo
-  // };s
-  // change food amount
   return (
     <div className="myday-grid-container">
       <div>
@@ -41,7 +38,7 @@ const MyDayFood = ({ food, onDeleteFood, onChangeFoodAmount }) => {
       </div>
       <div>
         <input
-          className="input"
+          className="my-day-input"
           type="text"
           placeholder="amount"
           value={foodAmount}

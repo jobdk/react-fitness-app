@@ -7,8 +7,6 @@ const AddExercise = (props) => {
   const [baseTime, setBaseTime] = useState("");
   const [energyBurned, setEnergyBurned] = useState("");
 
-  const [exercise, setExercise] = useState("");
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (!name & !baseTime & !energyBurned) {

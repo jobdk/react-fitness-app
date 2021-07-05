@@ -13,8 +13,6 @@ const AddFood = (props) => {
   const [fiber, setFiber] = useState("");
   const [drink, setDrink] = useState(false);
 
-  const [food, setFood] = useState();
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (!name & !baseAmount & !energy & !fat & !carbohydrates & !protein) {
@@ -33,10 +31,7 @@ const AddFood = (props) => {
       fiber: fiber,
       drink: drink,
     };
-    // console.log(newFood);
-    //  setFood(newFood);
     props.postFood(newFood);
-    // console.log(e);
     setName("");
     setBaseAmount("");
     setEnergy("");

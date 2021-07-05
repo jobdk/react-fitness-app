@@ -5,16 +5,16 @@ import Signup from "./Signup/Signup";
 import { isUserLoggedIn } from "../../../utils/FunctionUtils";
 import * as authenticationActions from "../../../store/actions/authentication-actions";
 import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Authentication = (props) => {
+  const hasExpiration = useSelector(
+    (state) => state.authenticationReducer.expiration
+  );
   const [isSignInComponent, setIsSignInComponent] = useState(true);
   const [pressedLoggedIn, setPressedLoggedIn] = useState("yes");
-  useEffect(() => {
-    setTimeout(function () {
-      isUserLoggedIn();
-      console.log("hi");
-    }, 3000);
-  }, [pressedLoggedIn]);
+
+  useEffect(() => {}, [pressedLoggedIn]);
 
   const onToggle = () => {
     setIsSignInComponent(!isSignInComponent);

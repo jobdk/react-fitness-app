@@ -28,9 +28,11 @@ const MyDayExercise = ({
         setBaseTime(exercisesFromState[i].baseTime);
         console.log(exercisesFromState[i]);
         setEnergyBurned(
-          (exercisesFromState[i].energyBurned /
-            exercisesFromState[i].baseTime) *
+          (
+            (exercisesFromState[i].energyBurned /
+              exercisesFromState[i].baseTime) *
             timeInMinutes
+          ).toFixed(1)
         );
       }
     }
@@ -46,7 +48,7 @@ const MyDayExercise = ({
       </div>
       <div>
         <input
-          className="input"
+          className="my-day-input"
           type="text"
           placeholder="time"
           value={timeInMinutes}

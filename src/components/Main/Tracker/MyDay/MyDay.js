@@ -58,9 +58,6 @@ const MyDay = ({
           onChangeExerciseAmount={onChangeExerciseAmount}
         />
       </div>
-      <div></div>
-      <div></div>
-      <div></div>
     </div>
   );
 };

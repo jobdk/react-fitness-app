@@ -11,8 +11,6 @@ const NewProfile = (props) => {
   const [sex, setSex] = useState(0);
   const [userId, setUserId] = useState("");
 
-  const [profile, setProfile] = useState();
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (!name & !age & !height & !weight & !sex & !userId) {

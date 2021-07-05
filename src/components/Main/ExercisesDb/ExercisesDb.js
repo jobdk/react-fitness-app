@@ -7,7 +7,6 @@ const ExercisesDb = (props) => {
   const [deleted, setDeleted] = useState(0);
 
   useEffect(() => {
-    console.log("triggered");
     props.getExercises();
   }, [deleted]);
 
