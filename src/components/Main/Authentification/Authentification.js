@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Signin from "./Signin/Signin";
 import Signup from "./Signup/Signup";
 import { isUserLoggedIn } from "../../../utils/FunctionUtils";
@@ -8,6 +8,13 @@ import { connect } from "react-redux";
 
 const Authentication = (props) => {
   const [isSignInComponent, setIsSignInComponent] = useState(true);
+  const [pressedLoggedIn, setPressedLoggedIn] = useState("yes");
+  useEffect(() => {
+    setTimeout(function () {
+      isUserLoggedIn();
+      console.log("hi");
+    }, 3000);
+  }, [pressedLoggedIn]);
 
   const onToggle = () => {
     setIsSignInComponent(!isSignInComponent);
@@ -21,7 +28,12 @@ const Authentication = (props) => {
     if (isSignInComponent) {
       return (
         <div>
-          <Signin onToggle={onToggle} />
+          <Signin
+            onToggle={onToggle}
+            pressedLoggedIn={() => {
+              setPressedLoggedIn({ ...pressedLoggedIn });
+            }}
+          />
         </div>
       );
     } else {
@@ -34,8 +46,15 @@ const Authentication = (props) => {
   } else {
     return (
       <div>
-        <div>you are already logged in!</div>
-        <button onClick={() => logout()}>logout</button>
+        <h3>you are already logged in!</h3>
+        <button
+          type="button"
+          onClick={() => logout()}
+          value="logout"
+          className="btn-submit"
+        >
+          logout
+        </button>
       </div>
     );
   }
@@ -44,8 +63,7 @@ const Authentication = (props) => {
 const mapActionToProps = (dispatch) => {
   return {
     login: (user) => {
-      const b = dispatch(authenticationActions.login(user));
-      console.log(b);
+      dispatch(authenticationActions.login(user));
     },
     logout: () => {
       dispatch(authenticationActions.logout());

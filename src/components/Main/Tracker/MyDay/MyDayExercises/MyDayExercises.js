@@ -1,7 +1,11 @@
 import React from "react";
 import MyDayExercise from "./MyDayExercise/MyDayExercise";
 
-const MyDayExercises = ({ exercises, onDeleteExercise }) => {
+const MyDayExercises = ({
+  exercises,
+  onDeleteExercise,
+  onChangeExerciseAmount,
+}) => {
   return (
     <div>
       {exercises.map((exercise) => (
@@ -9,6 +13,7 @@ const MyDayExercises = ({ exercises, onDeleteExercise }) => {
           key={exercise.exerciseId}
           exercise={exercise}
           onDeleteExercise={onDeleteExercise}
+          onChangeExerciseAmount={onChangeExerciseAmount}
         />
       ))}
     </div>

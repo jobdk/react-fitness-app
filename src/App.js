@@ -14,6 +14,7 @@ import EditExercise from "./components/Main/ExercisesDb/EditExercise/EditExercis
 import AddExercise from "./components/Main/ExercisesDb/AddExercise/AddExercise";
 import NewProfile from "./components/Main/ProfilesDb/Profiles/Profile/NewProfile/NewProfile";
 import EditProfile from "./components/Main/ProfilesDb/Profiles/Profile/EditProfile/EditProfile";
+import Main from "./components/Main/Main";
 import { connect } from "react-redux";
 import * as exerciseActions from "./store/actions/exercise-actions";
 import * as foodActions from "././store/actions/food-actions";
@@ -39,6 +40,7 @@ class App extends Component {
       <Route path="/exercise/add/" component={AddExercise} />
       <Route path="/profile/add" component={NewProfile} />
       <Route path="/profile/edit/:id" component={EditProfile} />
+      <Route path="/" component={Main} />
       <Redirect to="/" />
     </Switch>
   );

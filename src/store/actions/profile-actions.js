@@ -25,7 +25,7 @@ export const getProfiles = () => {
 export const deleteProfile = (profileId) => {
   return (dispatch) => {
     axios
-      .delete("/fitness/profile/:" + profileId, { withCredentials: true })
+      .delete("/fitness/profile/" + profileId, { withCredentials: true })
       .then((response) => {
         if (
           response.data.msg === "Deleting all days for this profile went wrong!"

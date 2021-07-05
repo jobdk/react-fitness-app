@@ -1,13 +1,14 @@
 import { useState } from "react";
 import * as profileActions from "../../../../../../store/actions/profile-actions";
 import { connect } from "react-redux";
+import "../NewProfile/NewProfile.css";
 
 const NewProfile = (props) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState(0);
   const [userId, setUserId] = useState("");
 
   const [profile, setProfile] = useState();
@@ -88,12 +89,17 @@ const NewProfile = (props) => {
         <label>
           <b>sex</b>
         </label>
-        <input
-          type="text"
-          placeholder="sex"
-          value={sex}
-          onChange={(e) => setSex(e.target.value)}
-        />
+        <select
+          name="sex"
+          id="sex"
+          onChange={(e) => {
+            console.log(e.target.value);
+            setSex(e.target.value);
+          }}
+        >
+          <option value="0">male</option>
+          <option value="1">female</option>
+        </select>
       </div>
       <input
         type="submit"

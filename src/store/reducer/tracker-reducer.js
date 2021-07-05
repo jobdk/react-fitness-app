@@ -1,5 +1,5 @@
 const initialState = {
-  currentDay: null,
+  currentDay: [],
   days: [],
 };
 

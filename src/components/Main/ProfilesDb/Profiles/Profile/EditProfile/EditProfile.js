@@ -112,12 +112,15 @@ const EditProfile = (props) => {
         <label>
           <b>sex</b>
         </label>
-        <input
-          type="text"
-          placeholder="sex"
+        <select
+          name="sex"
+          id="sex"
           value={sex}
           onChange={(e) => setSex(e.target.value)}
-        />
+        >
+          <option value="0">male</option>
+          <option value="1">female</option>
+        </select>
       </div>
       <input
         type="submit"

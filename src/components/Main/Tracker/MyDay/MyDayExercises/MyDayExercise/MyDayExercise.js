@@ -4,29 +4,40 @@ import { useStore } from "react-redux";
 import { useState, useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 
-const MyDayExercise = ({ exercise, onDeleteExercise }) => {
+const MyDayExercise = ({
+  exercise,
+  onDeleteExercise,
+  onChangeExerciseAmount,
+}) => {
   // if (exercise) console.log(exercise);
 
   const store = useStore();
 
   const [exerciseId, setExerciseId] = useState("");
   const [name, setName] = useState("");
-  const [timeInMinutes, setTimeInMinutes] = useState("");
+  const [timeInMinutes, setTimeInMinutes] = useState(exercise.timeInMinutes);
   const [energyBurned, setEnergyBurned] = useState("");
+  const [baseTime, setBaseTime] = useState("");
 
   useEffect(() => {
     const exercisesFromState = store.getState().exerciseReducer.exercises;
     for (let i = 0; i < exercisesFromState.length; i++) {
       if (exercisesFromState[i]._id === exercise.exerciseId) {
-        setExerciseId(exerciseId);
+        setExerciseId(exercise.exerciseId);
         setName(exercisesFromState[i].name);
-        setEnergyBurned(exercisesFromState[i].energyBurned);
-      }
-      if (name === "") {
-        console.log("exercises not found. ExerciseId = " + exercise.exerciseId);
+        setBaseTime(exercisesFromState[i].baseTime);
+        console.log(exercisesFromState[i]);
+        setEnergyBurned(
+          (exercisesFromState[i].energyBurned /
+            exercisesFromState[i].baseTime) *
+            timeInMinutes
+        );
       }
     }
-  }, [exercise, store, exerciseId]);
+    if (name === "") {
+      console.log("exercises not found. ExerciseId = " + exercise.exerciseId);
+    }
+  }, [exercise, store, exerciseId, timeInMinutes]);
 
   return (
     <div className="myday-grid-container">
@@ -38,9 +49,13 @@ const MyDayExercise = ({ exercise, onDeleteExercise }) => {
           className="input"
           type="text"
           placeholder="time"
-          value={exercise.timeInMinutes}
-          onChange={(e) => setTimeInMinutes(e.target.value)}
-        />
+          value={timeInMinutes}
+          onChange={(e) => {
+            setTimeInMinutes(e.target.value);
+            onChangeExerciseAmount(exercise, e.target.value);
+          }}
+        />{" "}
+        min
       </div>
       <div>
         <h3>{energyBurned}</h3>

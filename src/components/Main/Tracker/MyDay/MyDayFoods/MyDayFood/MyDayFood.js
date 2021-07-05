@@ -4,7 +4,7 @@ import { useStore } from "react-redux";
 import { useState, useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 
-const MyDayFood = ({ food, onDeleteFood }) => {
+const MyDayFood = ({ food, onDeleteFood, onChangeFoodAmount }) => {
   // if (food) console.log(food);
 
   const [foodAmount, setFoodAmount] = useState(food.amount);
@@ -20,14 +20,20 @@ const MyDayFood = ({ food, onDeleteFood }) => {
 
     for (let i = 0; i < foodsFromState.length; i++) {
       if (foodsFromState[i]._id === food.foodId) {
-        setFoodId(foodId);
+        setFoodId(food.foodId);
         setName(foodsFromState[i].name);
         setBaseAmount(foodsFromState[i].baseAmount);
-        setEnergy(foodsFromState[i].energy);
+        setEnergy(
+          (foodsFromState[i].energy / foodsFromState[i].baseAmount) * foodAmount
+        );
       }
     }
-  }, [food, store, foodId]);
+  }, [food, store, foodId, foodAmount]);
 
+  // const onChangeFoodAmount1 = () => {
+  //   food.foodAmount=foo
+  // };s
+  // change food amount
   return (
     <div className="myday-grid-container">
       <div>
@@ -39,8 +45,12 @@ const MyDayFood = ({ food, onDeleteFood }) => {
           type="text"
           placeholder="amount"
           value={foodAmount}
-          onChange={(e) => setFoodAmount(e.target.value)}
-        />
+          onChange={(e) => {
+            setFoodAmount(e.target.value);
+            onChangeFoodAmount(food, e.target.value);
+          }}
+        />{" "}
+        gram
       </div>
       <div>
         <h3>{energy}</h3>
@@ -50,6 +60,7 @@ const MyDayFood = ({ food, onDeleteFood }) => {
           <span
             onClick={() => {
               onDeleteFood(food);
+              console.log("deleteit");
             }}
           >
             <BsTrash />

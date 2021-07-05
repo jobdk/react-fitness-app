@@ -1,0 +1,9 @@
+profile-grid-container {
+  display: grid;
+  grid-template-rows: 20%;
+  grid-template-areas: ".";
+  background: var(--tertiary-color);
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}

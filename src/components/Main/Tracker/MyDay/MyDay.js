@@ -8,6 +8,8 @@ const MyDay = ({
   currentDay,
   onDeleteFood,
   onDeleteExercise,
+  onChangeFoodAmount,
+  onChangeExerciseAmount,
 }) => {
   return (
     <div>
@@ -16,12 +18,17 @@ const MyDay = ({
         {selectedDate.getFullYear()}
       </h3>
       <div>
-        <MyDayFoods foods={currentDay.food} onDeleteFood={onDeleteFood} />
+        <MyDayFoods
+          foods={currentDay.food}
+          onDeleteFood={onDeleteFood}
+          onChangeFoodAmount={onChangeFoodAmount}
+        />
       </div>
       <div>
         <MyDayExercises
           exercises={currentDay.exercise}
           onDeleteExercise={onDeleteExercise}
+          onChangeExerciseAmount={onChangeExerciseAmount}
         />
       </div>
       <div></div>

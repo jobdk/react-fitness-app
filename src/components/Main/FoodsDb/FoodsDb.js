@@ -1,10 +1,17 @@
 import Foods from "./Foods/Foods";
 import { connect } from "react-redux";
-import React from "react";
 import * as foodActions from "../../../store/actions/food-actions";
+import { useState, useEffect } from "react";
 
 const FoodsDb = (props) => {
+  const [deleted, setDeleted] = useState(0);
+
+  useEffect(() => {
+    props.getFoods();
+  }, [deleted]);
+
   const onDelete = (id) => {
+    setDeleted(id);
     props.deleteFood(id);
   };
 
@@ -33,6 +40,9 @@ const mapActionToProps = (dispatch) => {
   return {
     deleteFood: (foodId) => {
       dispatch(foodActions.deleteFood(foodId));
+    },
+    getFoods: () => {
+      dispatch(foodActions.getFoods());
     },
   };
 };

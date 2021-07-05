@@ -1,9 +1,18 @@
 import Exercises from "./Exercises/Exercises";
 import { connect } from "react-redux";
 import * as exerciseAction from "../../../store/actions/exercise-actions";
+import { useState, useEffect } from "react";
 
 const ExercisesDb = (props) => {
+  const [deleted, setDeleted] = useState(0);
+
+  useEffect(() => {
+    console.log("triggered");
+    props.getExercises();
+  }, [deleted]);
+
   const onDelete = (id) => {
+    setDeleted(id);
     props.deleteExercise(id);
   };
 
@@ -32,6 +41,9 @@ const mapActionToProps = (dispatch) => {
   return {
     deleteExercise: (exerciseId) => {
       dispatch(exerciseAction.deleteExercise(exerciseId));
+    },
+    getExercises: () => {
+      dispatch(exerciseAction.getExercises());
     },
   };
 };

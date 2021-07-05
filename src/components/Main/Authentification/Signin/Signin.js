@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import * as authenticationActions from "../../../../store/actions/authentication-actions";
+import { useHistory } from "react-router-dom";
 
-const Signin = (props) => {
+const Signin = ({ onToggle, pressedLoggedIn, login }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState();
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,7 +16,10 @@ const Signin = (props) => {
       return;
     }
     const user = { email: email, password: password };
-    props.login(user);
+    login(user);
+    history.push({
+      pathname: "/user/authentication",
+    });
     setUser(user);
     setEmail("");
     setPassword("");
@@ -43,13 +48,16 @@ const Signin = (props) => {
           type="submit"
           value="Signin"
           className="btn-submit btn-submit-left"
+          onClick={() => {
+            pressedLoggedIn();
+          }}
         />
         <input
           type="button"
           value="No account"
           className="btn-submit btn-submit-right"
           onClick={() => {
-            props.onToggle();
+            onToggle();
           }}
         />
       </form>

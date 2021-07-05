@@ -16,7 +16,7 @@ const Profile = ({ profile, onDelete, onEdit, onSelectProfile }) => {
         <h3>{profile.weight}</h3>
       </div>
       <div>
-        <h3>{profile.sex}</h3>
+        <h3>{profile.sex === 0 ? "male" : "female"}</h3>
       </div>
       <div>
         <h3>

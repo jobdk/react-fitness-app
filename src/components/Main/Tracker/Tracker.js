@@ -2,43 +2,71 @@ import React from "react";
 import { useParams } from "react-router";
 import Calendar from "react-calendar";
 import { useState, useEffect } from "react";
-import FoodsDb from "../../FoodsDb/FoodsDb";
-import ExercisesDb from "../../ExercisesDb/ExercisesDb";
-import * as trackerActions from "../../../../store/actions/tracker-actions";
+import FoodsDb from "../FoodsDb/FoodsDb";
+import ExercisesDb from "../ExercisesDb/ExercisesDb";
+import * as trackerActions from "../../../store/actions/tracker-actions";
+import {
+  calcNetCalories,
+  calcCaloriesEaten,
+  calcCaloriesBurned,
+  calcCalorieDeficit,
+  calcMacros,
+} from "../../../utils/FunctionUtils";
 import MyDay from "./MyDay/MyDay";
-import { useStore, connect, useDispatch, useSelector } from "react-redux";
+import { useStore, useDispatch, useSelector, connect } from "react-redux";
 
-const Tracker = ({ getDay, putDay, postDay }) => {
+const Tracker = () => {
   const dispatch = useDispatch();
+  let profile;
   let { id } = useParams();
   const store = useStore();
-  const d = useSelector((state) => state.trackerReducer.currentDay);
+  const currentDayFromState = useSelector(
+    (state) => state.trackerReducer.currentDay
+  );
+  const profilesFromState = store.getState().profileReducer.profiles;
+  const foodsFromState = store.getState().foodReducer.foods;
+  const exercisesFromState = store.getState().exerciseReducer.exercises;
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [totalCaloriesToEat, setTotalCaloriesToEat] = useState(0);
+  const [caloriesEaten, setCaloriesEaten] = useState(0);
+  const [caloriesBurned, setCaloriesBurned] = useState(0);
+  const [calorieDeficit, setCalorieDeficit] = useState(0);
+  const [goalCarbs, setGoalCarbs] = useState(0);
+  const [consumedCarbs, setConsumedCarbs] = useState(0);
+  const [goalProteins, setGoalProteins] = useState(0);
+  const [consumedProteins, setConsumedProteins] = useState(0);
+  const [goalFats, setGoalFats] = useState(0);
+  const [consumedFats, setConsumedFats] = useState(0);
+
   const [currentDayBuffer, setCurrentDayBuffer] = useState({
-    // date: Math.floor(selectedDate.getTime() / 1000),
     date: Math.floor(currentDate.getTime() / 1000),
     food: [],
     exercise: [],
     profileId: id,
   });
   useEffect(() => {
-    console.log(d);
     formatDateTime();
-    getDayFromBackend();
-    // console.log(currentDayBuffer.date);
-    // retrieveProfileFromUrl();
-
-    // console.log(currentDayBuffer);
-  }, [currentDate, currentDayBuffer.date]);
+    checkDispatch();
+    retrieveProfileInformation();
+  }, [
+    currentDate,
+    currentDayBuffer.date,
+    totalCaloriesToEat,
+    caloriesEaten,
+    caloriesBurned,
+  ]);
 
   const getDayFromBackend = () => {
     dispatch(
       trackerActions.getDay(id, Math.floor(currentDate.getTime() / 1000))
     );
-    // if (store.getState().trackerReducer.currentDay) {
+  };
+
+  const checkDispatch = async () => {
+    getDayFromBackend();
     console.log(2);
-    if (d.getDayResponse) {
-      const mappedDay = mapStoredDay(d.getDayResponse[0]);
+    if (currentDayFromState.getDayResponse.length > 0) {
+      const mappedDay = mapStoredDay(currentDayFromState.getDayResponse[0]);
       setCurrentDayBuffer(mappedDay);
     } else {
       console.log("no day found.");
@@ -50,8 +78,30 @@ const Tracker = ({ getDay, putDay, postDay }) => {
       };
       setCurrentDayBuffer(newDay);
     }
-    // }
   };
+
+  const retrieveProfileInformation = () => {
+    profile = profilesFromState.filter((profile) => profile._id === id);
+    setTotalCaloriesToEat(calcNetCalories(profile[0]));
+    setCaloriesEaten(calcCaloriesEaten(currentDayBuffer.food, foodsFromState));
+    setCaloriesBurned(
+      calcCaloriesBurned(currentDayBuffer.exercise, exercisesFromState)
+    );
+    setCalorieDeficit(
+      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
+    );
+    setConsumedCarbs(
+      calcMacros("carbs", currentDayBuffer.food, foodsFromState)
+    );
+    setGoalCarbs((totalCaloriesToEat / 2 / 4).toFixed(2));
+    setConsumedFats(calcMacros("fats", currentDayBuffer.food, foodsFromState));
+    setGoalFats(((totalCaloriesToEat * 0.3) / 9).toFixed(2));
+    setConsumedProteins(
+      calcMacros("proteins", currentDayBuffer.food, foodsFromState)
+    );
+    setGoalProteins((0.793664791 * profile[0].weight).toFixed(2));
+  };
+
   const formatDateTime = () => {
     currentDate.setHours(0);
     currentDate.setMinutes(0);
@@ -60,7 +110,6 @@ const Tracker = ({ getDay, putDay, postDay }) => {
 
   const mapStoredDay = (storedDay) => {
     return {
-      // date: Math.floor(selectedDate.getTime() / 1000),
       dayId: storedDay._id,
       date: storedDay.date,
       food: storedDay.food,
@@ -104,9 +153,10 @@ const Tracker = ({ getDay, putDay, postDay }) => {
     setCurrentDayBuffer(buffer);
   };
 
+  // trigger useeffect
   const onSave = () => {
-    if (store.getState().trackerReducer.currentDay) {
-      if (store.getState().trackerReducer.currentDay.getDayResponse[0]) {
+    if (currentDayFromState) {
+      if (currentDayFromState.getDayResponse[0]) {
         dispatch(trackerActions.putDay(currentDayBuffer));
       } else {
         dispatch(trackerActions.postDay(currentDayBuffer));
@@ -114,6 +164,49 @@ const Tracker = ({ getDay, putDay, postDay }) => {
       }
     }
   };
+
+  // here
+  const onChangeFoodAmount = (food, amount) => {
+    let buffer = { ...currentDayBuffer };
+    for (let i = 0; i < buffer.food.length; i++) {
+      if (buffer.food[i].foodId === food.foodId) {
+        buffer.food[i].amount = amount;
+      }
+    }
+    setCurrentDayBuffer(buffer);
+  };
+
+  const setMacros = () => {
+    profile = profilesFromState.filter((profile) => profile._id === id);
+    setCaloriesEaten(calcCaloriesEaten(currentDayBuffer.food, foodsFromState));
+    setCaloriesBurned(
+      calcCaloriesBurned(currentDayBuffer.exercise, exercisesFromState)
+    );
+    setCalorieDeficit(
+      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
+    );
+    setConsumedCarbs(
+      calcMacros("carbs", currentDayBuffer.food, foodsFromState)
+    );
+    setGoalCarbs((totalCaloriesToEat / 2 / 4).toFixed(2));
+    setConsumedFats(calcMacros("fats", currentDayBuffer.food, foodsFromState));
+    setGoalFats(((totalCaloriesToEat * 0.3) / 9).toFixed(2));
+    setConsumedProteins(
+      calcMacros("proteins", currentDayBuffer.food, foodsFromState)
+    );
+    setGoalProteins((0.793664791 * profile[0].weight).toFixed(2));
+  };
+
+  const onChangeExerciseAmount = (exercise, timeInMinutes) => {
+    let buffer = { ...currentDayBuffer };
+    for (let i = 0; i < buffer.exercise.length; i++) {
+      if (buffer.exercise[i].exerciseId === exercise.exerciseId) {
+        buffer.exercise[i].timeInMinutes = timeInMinutes;
+      }
+    }
+    setCurrentDayBuffer(buffer);
+  };
+
   return (
     <div>
       <Calendar
@@ -127,8 +220,27 @@ const Tracker = ({ getDay, putDay, postDay }) => {
         currentDay={currentDayBuffer}
         onDeleteFood={onDeleteFood}
         onDeleteExercise={onDeleteExercise}
+        onChangeFoodAmount={onChangeFoodAmount}
+        onChangeExerciseAmount={onChangeExerciseAmount}
       />
-      <button onClick={onSave}>save day</button>
+      <h4>current calories</h4>
+      <div>
+        you have eaten <b>{caloriesEaten}</b> of your{" "}
+        <b>{totalCaloriesToEat}</b> calories
+      </div>
+      <div>
+        you have burned <b>{caloriesBurned}</b> calories
+      </div>
+      <div>
+        you can eat <b>{calorieDeficit}</b>
+      </div>
+      <div>
+        {consumedCarbs}/{goalCarbs} carbs | {consumedProteins}/{goalProteins}{" "}
+        protein | {consumedFats}/{goalFats} fats
+      </div>
+      <button onClick={onSave} className="btn-submit">
+        save day
+      </button>
       <h4>add a food or exercise</h4>
       <h4>food</h4>
       <FoodsDb isTracker={true} onAdd={onAddFood} />
@@ -138,4 +250,12 @@ const Tracker = ({ getDay, putDay, postDay }) => {
   );
 };
 
-export default Tracker;
+const mapActionToProps = (dispatch) => {
+  return {
+    getDay: (profileId, date) => {
+      dispatch(trackerActions.getDay(profileId, date));
+    },
+  };
+};
+
+export default connect(null, mapActionToProps)(Tracker);
