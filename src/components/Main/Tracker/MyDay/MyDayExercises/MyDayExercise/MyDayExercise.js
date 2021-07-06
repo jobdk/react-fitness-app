@@ -24,7 +24,7 @@ const MyDayExercise = ({
         setExerciseId(exercise.exerciseId);
         setName(exercisesFromState[i].name);
         setBaseTime(exercisesFromState[i].baseTime);
-        console.log(exercisesFromState[i]);
+        // console.log(exercisesFromState[i]);
         setEnergyBurned(
           (
             (exercisesFromState[i].energyBurned /
@@ -33,9 +33,6 @@ const MyDayExercise = ({
           ).toFixed(1)
         );
       }
-    }
-    if (name === "") {
-      console.log("exercises not found. ExerciseId = " + exercise.exerciseId);
     }
   }, [exercise, store, exerciseId, timeInMinutes]);
 

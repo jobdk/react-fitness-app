@@ -82,9 +82,7 @@ const Tracker = () => {
       calcMacros("proteins", currentDayBuffer.food, foodsFromState)
     );
     setGoalProteins((0.793664791 * profile[0].weight).toFixed(1));
-    setCalorieDeficit(
-      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
-    );
+    setCalorieDeficit(+totalCaloriesToEat + +caloriesBurned - caloriesEaten);
   };
 
   const formatDateTime = () => {
@@ -162,9 +160,7 @@ const Tracker = () => {
     setCaloriesBurned(
       calcCaloriesBurned(currentDayBuffer.exercise, exercisesFromState)
     );
-    setCalorieDeficit(
-      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
-    );
+
     setConsumedCarbs(
       calcMacros("carbs", currentDayBuffer.food, foodsFromState)
     );
@@ -175,6 +171,9 @@ const Tracker = () => {
       calcMacros("proteins", currentDayBuffer.food, foodsFromState)
     );
     setGoalProteins((0.793664791 * profile[0].weight).toFixed(1));
+    setCalorieDeficit(
+      calcCalorieDeficit(totalCaloriesToEat, caloriesBurned, caloriesEaten)
+    );
   };
 
   const onChangeExerciseAmount = (exercise, timeInMinutes) => {
@@ -182,15 +181,13 @@ const Tracker = () => {
     for (let i = 0; i < buffer.exercise.length; i++) {
       if (buffer.exercise[i].exerciseId === exercise.exerciseId) {
         buffer.exercise[i].timeInMinutes = timeInMinutes;
+        setMacros();
       }
     }
     setCurrentDayBuffer(buffer);
-    setMacros();
   };
 
-  return isLoading ? (
-    <div>loading</div>
-  ) : (
+  return isLoading ? null : (
     <div>
       <Calendar
         onChange={(e) => {

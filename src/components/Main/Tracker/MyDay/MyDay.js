@@ -26,7 +26,7 @@ const MyDay = ({
       const mappedDay = mapStoredDay(currentDayFromState.getDayResponse[0]);
       setCurrentDayBuffer(mappedDay);
     } else {
-      console.log("no day found.");
+      // console.log("no day found.");
       const newDay = {
         date: Math.floor(currentDate.getTime() / 1000),
         food: [],

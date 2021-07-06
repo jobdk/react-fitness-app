@@ -11,8 +11,8 @@ const FoodsDb = (props) => {
   }, [deleted]);
 
   const onDelete = (id) => {
-    setDeleted(id);
     props.deleteFood(id);
+    setDeleted(id);
   };
 
   if (props.foods) {

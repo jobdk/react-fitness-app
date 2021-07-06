@@ -13,6 +13,12 @@ const ProfilesDb = (props) => {
   const onDelete = (id) => {
     props.deleteProfile(id);
     setDeleted(id);
+    setDeleted(id + 1);
+    setDeleted(id + 1);
+    setDeleted(id + 1);
+    setDeleted(id + 1);
+    setDeleted(id + 1);
+    setDeleted(...(id + 1));
   };
 
   const hasExpiration = useSelector(

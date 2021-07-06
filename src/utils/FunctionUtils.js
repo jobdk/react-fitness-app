@@ -43,12 +43,11 @@ export const calcCaloriesBurned = (exercises, exercisesFromState) => {
   for (let k = 0; k < exercises.length; k++) {
     for (let i = 0; i < exercisesFromState.length; i++) {
       if (exercises[k].exerciseId === exercisesFromState[i]._id) {
-        console.log("match");
         result +=
           (exercisesFromState[i].energyBurned /
             exercisesFromState[i].baseTime) *
           exercises[k].timeInMinutes;
-        console.log(result);
+        // console.log(result);
       }
     }
   }
