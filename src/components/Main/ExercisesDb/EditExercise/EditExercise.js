@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { useStore, connect } from "react-redux";
+import { useStore, connect, useSelector } from "react-redux";
 import * as exerciseActions from "../../../../store/actions/exercise-actions";
 
 const EditExercise = (props) => {
@@ -12,7 +12,12 @@ const EditExercise = (props) => {
   const [baseTime, setBaseTime] = useState("");
   const [energyBurned, setEnergyBurned] = useState("");
 
+  const [bufferName, setBufferName] = useState();
+
   const [exercise, setExercise] = useState("");
+  const isSuccessfullyEdited = useSelector(
+    (state) => state.exerciseReducer.putExerciseMessage
+  );
 
   useEffect(() => {
     const exercisesFromState = store.getState().exerciseReducer.exercises;
@@ -34,7 +39,7 @@ const EditExercise = (props) => {
       alert("please add data.");
       return;
     }
-
+    setBufferName(name);
     const newExercise = {
       exerciseId: exerciseId,
       name: name,
@@ -43,53 +48,63 @@ const EditExercise = (props) => {
     };
 
     props.putExercise(newExercise);
-    setExerciseId("");
-    setName("");
-    setBaseTime("");
-    setEnergyBurned("");
   };
 
   return (
-    <form className="login-signup-form" onSubmit={onSubmit}>
-      <div className="form-control">
-        <label>
-          <h3>name</h3>
-        </label>
+    <div>
+      {" "}
+      {isSuccessfullyEdited ===
+      "Request failed with status code 422 " + bufferName ? (
+        <div>
+          <h1>Could not be added.</h1>
+        </div>
+      ) : null}
+      {isSuccessfullyEdited === "edited exercise " + bufferName ? (
+        <div>
+          <h1>edited exercise</h1>
+        </div>
+      ) : null}
+      <form className="login-signup-form" onSubmit={onSubmit}>
+        <div className="form-control">
+          <label>
+            <h3>name</h3>
+          </label>
+          <input
+            type="text"
+            placeholder="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="form-control">
+          <label>
+            <h3>baseTime</h3>
+          </label>
+          <input
+            type="text"
+            placeholder="baseTime"
+            value={baseTime}
+            onChange={(e) => setBaseTime(e.target.value)}
+          />
+        </div>
+        <div className="form-control">
+          <label>
+            <h3>energy</h3>
+          </label>
+          <input
+            type="text"
+            placeholder="energyBurned"
+            value={energyBurned}
+            onChange={(e) => setEnergyBurned(e.target.value)}
+          />
+        </div>
         <input
-          type="text"
-          placeholder="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          type="submit"
+          value="Save"
+          className="btn-submit btn-submit-left"
         />
-      </div>
-      <div className="form-control">
-        <label>
-          <h3>baseTime</h3>
-        </label>
-        <input
-          type="text"
-          placeholder="baseTime"
-          value={baseTime}
-          onChange={(e) => setBaseTime(e.target.value)}
-        />
-      </div>
-      <div className="form-control">
-        <label>
-          <h3>energy</h3>
-        </label>
-        <input
-          type="text"
-          placeholder="energyBurned"
-          value={energyBurned}
-          onChange={(e) => setEnergyBurned(e.target.value)}
-        />
-      </div>
-      <input
-        type="submit"
-        value="Save"
-        className="btn-submit btn-submit-left"
-      />
-    </form>
+      </form>
+    </div>
   );
 };
 const mapActionToProps = (dispatch) => {

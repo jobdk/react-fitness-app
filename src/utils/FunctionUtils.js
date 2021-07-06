@@ -7,7 +7,6 @@ export const isUserLoggedIn = () => {
 };
 
 export const calcNetCalories = (profile) => {
-  // console.log(profile);
   if (profile.sex === 0) {
     return (
       10 * profile.weight +
@@ -33,7 +32,6 @@ export const calcCaloriesEaten = (foods, foodsFromState) => {
         result +=
           (foodsFromState[i].energy / foodsFromState[i].baseAmount) *
           foods[k].amount;
-        // console.log(result);
       }
     }
   }
@@ -42,7 +40,6 @@ export const calcCaloriesEaten = (foods, foodsFromState) => {
 
 export const calcCaloriesBurned = (exercises, exercisesFromState) => {
   let result = 0;
-  // console.log(exercises);
   for (let k = 0; k < exercises.length; k++) {
     for (let i = 0; i < exercisesFromState.length; i++) {
       if (exercises[k].exerciseId === exercisesFromState[i]._id) {
@@ -63,14 +60,13 @@ export const calcCalorieDeficit = (
   totalCaloriesToEat,
   caloriesEaten
 ) => {
-  let result = totalCaloriesToEat + caloriesBurned - caloriesEaten;
+  let result = +totalCaloriesToEat + +caloriesBurned - +caloriesEaten;
 
   return result >= 0 ? result : 0;
 };
 
 export const calcMacros = (macro, foods, foodsFromState) => {
   if (macro === "carbs") {
-    console.log("calccarbs");
     let result = 0;
     for (let k = 0; k < foods.length; k++) {
       for (let i = 0; i < foodsFromState.length; i++) {
@@ -90,7 +86,6 @@ export const calcMacros = (macro, foods, foodsFromState) => {
           result +=
             (foodsFromState[i].protein / foodsFromState[i].baseAmount) *
             foods[k].amount;
-          // console.log(result);
         }
       }
     }
@@ -103,7 +98,6 @@ export const calcMacros = (macro, foods, foodsFromState) => {
           result +=
             (foodsFromState[i].fat / foodsFromState[i].baseAmount) *
             foods[k].amount;
-          // console.log(result);
         }
       }
     }

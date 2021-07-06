@@ -4,6 +4,10 @@ import axios from "../../axios-url";
 // get
 
 export const STORE_EXERCISES = "STOREEXERCISES";
+export const POST_EXERCISE_SUCCESS = "POST_EXERCISE_SUCCESS";
+export const POST_EXERCISE_FAILED = "POST_EXERCISE_FAILED";
+export const PUT_EXERCISE_FAILED = "PUT_EXERCISE_FAILED";
+export const PUT_EXERCISE_SUCCESS = "PUT_EXERCISE_SUCCESS";
 
 const storeExercises = (exercises) => {
   return {
@@ -20,7 +24,7 @@ export const getExercises = () => {
         dispatch(storeExercises(response.data));
       })
       .catch((error) => {
-        alert(error.response.data);
+        alert(error.message);
       });
   };
 };
@@ -39,17 +43,44 @@ export const deleteExercise = (exerciseId) => {
   };
 };
 
+const postExerciseSuccess = (postExerciseSuccessMessage, name) => {
+  return {
+    type: POST_EXERCISE_SUCCESS,
+    payload: postExerciseSuccessMessage + " " + name,
+  };
+};
+
+const postExerciseFailed = (postExerciseFailedMessage, name) => {
+  return {
+    type: POST_EXERCISE_FAILED,
+    payload: postExerciseFailedMessage + " " + name,
+  };
+};
+
 export const postExercise = (exercise) => {
   return (dispatch) => {
     axios
       .post("/fitness/exercise/", exercise, { withCredentials: true })
       .then((response) => {
-        console.log(response);
-        //dispatch(storeFoods(response.data));
+        dispatch(postExerciseSuccess(response.data, exercise.name));
       })
       .catch((error) => {
-        alert(error.response.data);
+        dispatch(postExerciseFailed(error.message, exercise.name));
       });
+  };
+};
+
+const putExerciseSuccess = (putExerciseSuccessMessage, name) => {
+  return {
+    type: PUT_EXERCISE_SUCCESS,
+    payload: putExerciseSuccessMessage + " " + name,
+  };
+};
+
+const putExerciseFailed = (putFoodFailedMessage, name) => {
+  return {
+    type: PUT_EXERCISE_FAILED,
+    payload: putFoodFailedMessage + " " + name,
   };
 };
 
@@ -58,11 +89,10 @@ export const putExercise = (exercise) => {
     axios
       .put("/fitness/exercise/", exercise, { withCredentials: true })
       .then((response) => {
-        console.log(response);
-        //dispatch(storeExercise(response.data));
+        dispatch(putExerciseSuccess(response.data, exercise.name));
       })
       .catch((error) => {
-        alert(error.response.data);
+        dispatch(putExerciseFailed(error.message, exercise.name));
       });
   };
 };

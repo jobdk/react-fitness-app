@@ -1,10 +1,13 @@
 import Profiles from "./Profiles/Profiles";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import * as profileActions from "../../../store/actions/profile-actions";
 import { useState, useEffect } from "react";
 
 const ProfilesDb = (props) => {
   const [deleted, setDeleted] = useState(0);
+  const hasExpiration = useSelector(
+    (state) => state.authenticationReducer.expiration
+  );
 
   const onDelete = (id) => {
     setDeleted(id);
@@ -17,7 +20,9 @@ const ProfilesDb = (props) => {
 
   if (props.profiles) {
     let profiles = props.profiles;
-    return (
+    return hasExpiration === 0 || hasExpiration === null ? (
+      <div>No user is logged in</div>
+    ) : (
       <div>
         <Profiles profiles={profiles} onDelete={onDelete} />
       </div>

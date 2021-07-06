@@ -22,7 +22,6 @@ const MyDay = ({
   }, []);
 
   const checkDispatch = () => {
-    console.log(2);
     if (currentDayFromState.getDayResponse.length > 0) {
       const mappedDay = mapStoredDay(currentDayFromState.getDayResponse[0]);
       setCurrentDayBuffer(mappedDay);

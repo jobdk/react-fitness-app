@@ -17,7 +17,7 @@ export const getProfiles = () => {
         dispatch(storeProfiles(response.data));
       })
       .catch((error) => {
-        alert(error.response.data);
+        console.log(error.message);
       });
   };
 };
@@ -37,7 +37,7 @@ export const deleteProfile = (profileId) => {
         // console.log(response.data);
       })
       .catch((error) => {
-        alert(error.response.data);
+        alert(error.message);
       });
   };
 };
@@ -51,7 +51,7 @@ export const postProfile = (profile) => {
         //dispatch(storeFoods(response.data));
       })
       .catch((error) => {
-        alert(error.response.data);
+        alert(error.message);
       });
   };
 };
@@ -65,7 +65,7 @@ export const putProfile = (profile) => {
         //dispatch(storeProfiles(response.data));
       })
       .catch((error) => {
-        alert(error.response.data);
+        console.log(error.message);
       });
   };
 };

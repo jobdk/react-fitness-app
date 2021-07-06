@@ -69,7 +69,6 @@ const mapActionToProps = (dispatch) => {
   return {
     login: (user) => {
       const b = dispatch(authenticationActions.login(user));
-      console.log(b);
     },
     logout: (user) => {
       dispatch(authenticationActions.logout(user));

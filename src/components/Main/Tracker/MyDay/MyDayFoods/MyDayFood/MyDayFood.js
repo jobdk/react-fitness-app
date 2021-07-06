@@ -57,7 +57,6 @@ const MyDayFood = ({ food, onDeleteFood, onChangeFoodAmount }) => {
           <span
             onClick={() => {
               onDeleteFood(food);
-              console.log("deleteit");
             }}
           >
             <BsTrash />

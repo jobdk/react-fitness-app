@@ -9,8 +9,6 @@ const MyDayExercise = ({
   onDeleteExercise,
   onChangeExerciseAmount,
 }) => {
-  // if (exercise) console.log(exercise);
-
   const store = useStore();
 
   const [exerciseId, setExerciseId] = useState("");

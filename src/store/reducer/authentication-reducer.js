@@ -58,7 +58,7 @@ const logout = (state, action) => {
 
 const logoutFailed = (state) =>
   updateState(state, {
-    signOutMessage: "Abmeldung fehlgeschlagen",
+    signOutMessage: "Could not log out.",
   });
 
 const signUpFailed = (state, action) =>

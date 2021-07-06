@@ -1,3 +1,18 @@
 .pagetitle {
   text-align: center;
 }
+
+.upper-menu {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  /* grid-template-rows: 10%; */
+  /* gap: 0px 0px; */
+  grid-template-areas: ". . . .";
+  background: black;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.links {
+  color: white;
+}

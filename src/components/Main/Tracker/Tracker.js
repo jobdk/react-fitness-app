@@ -71,9 +71,7 @@ const Tracker = () => {
     setCaloriesBurned(
       calcCaloriesBurned(currentDayBuffer.exercise, exercisesFromState)
     );
-    setCalorieDeficit(
-      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
-    );
+
     setConsumedCarbs(
       calcMacros("carbs", currentDayBuffer.food, foodsFromState)
     );
@@ -84,6 +82,9 @@ const Tracker = () => {
       calcMacros("proteins", currentDayBuffer.food, foodsFromState)
     );
     setGoalProteins((0.793664791 * profile[0].weight).toFixed(1));
+    setCalorieDeficit(
+      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
+    );
   };
 
   const formatDateTime = () => {
@@ -106,8 +107,6 @@ const Tracker = () => {
     let buffer = { ...currentDayBuffer };
     buffer.food[buffer.food.length] = { foodId: food._id, amount: 0 };
     setCurrentDayBuffer(buffer);
-    console.log("added food");
-    console.log(currentDayBuffer);
   };
 
   const onAddExercise = (exercise) => {
@@ -117,8 +116,6 @@ const Tracker = () => {
       timeInMinutes: 0,
     };
     setCurrentDayBuffer(buffer);
-    console.log("added exercise");
-    console.log(currentDayBuffer);
   };
 
   const onDeleteFood = (food) => {
@@ -144,7 +141,6 @@ const Tracker = () => {
         dispatch(trackerActions.putDay(currentDayBuffer));
       } else {
         dispatch(trackerActions.postDay(currentDayBuffer));
-        console.log(currentDate);
       }
     }
   };

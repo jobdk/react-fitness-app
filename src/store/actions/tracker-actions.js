@@ -33,7 +33,6 @@ export const getDay = (profileId, date) => {
       .get("/fitness/day/" + path, { withCredentials: true })
       .then((response) => {
         dispatch(getDaySuccess(response.data));
-        console.log(1);
       })
       .catch((error) => {
         console.log(error.message);

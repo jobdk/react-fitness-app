@@ -140,7 +140,6 @@ const Signup = (props, { isSignInComponent }) => {
 const mapActionToProps = (dispatch) => {
   return {
     signup: (user) => {
-      console.log(user);
       dispatch(authenticationActions.signup(user));
     },
   };

@@ -91,7 +91,6 @@ const NewProfile = (props) => {
           name="sex"
           id="sex"
           onChange={(e) => {
-            console.log(e.target.value);
             setSex(e.target.value);
           }}
         >

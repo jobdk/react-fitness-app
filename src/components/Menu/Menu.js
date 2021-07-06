@@ -47,6 +47,8 @@ const Menu = (props) => {
           to={"/user/authentication"}
           onClick={() => toggleMenu()}
         >
+          {" "}
+          User
           <BsFillPersonFill />
         </NavLink>
       </Burgermenu>

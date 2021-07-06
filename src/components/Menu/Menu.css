@@ -1,8 +1,6 @@
 #page-wrap {
   text-align: center;
   overflow: auto;
-  /* top: 45%; */
-  /* position: relative; */
 }
 
 .bm-item {
@@ -10,7 +8,6 @@
   text-decoration: none;
   margin-bottom: 10px;
   color: black;
-  /* transition: color 0.2s; */
   cursor: pointer;
 }
 

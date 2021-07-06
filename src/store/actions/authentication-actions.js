@@ -27,7 +27,7 @@ export const login = (user) => {
         dispatch(loginSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(loginFailed(error.response.data));
+        dispatch(loginFailed(error.message));
       });
   };
 };
@@ -83,12 +83,11 @@ export const signup = (user) => {
     axios
       .post("/signup", user, { withCredentials: true })
       .then((response) => {
-        console.log(response);
         dispatch(signUpSuccess(response.data));
       })
       .catch((error) => {
         alert(error);
-        dispatch(signUpFailed(error.response.data));
+        dispatch(signUpFailed(error.message));
       });
   };
 };
