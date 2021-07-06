@@ -82,7 +82,9 @@ const Tracker = () => {
       calcMacros("proteins", currentDayBuffer.food, foodsFromState)
     );
     setGoalProteins((0.793664791 * profile[0].weight).toFixed(1));
-    setCalorieDeficit(+totalCaloriesToEat + +caloriesBurned - caloriesEaten);
+    setCalorieDeficit(
+      calcCalorieDeficit(caloriesBurned, totalCaloriesToEat, caloriesEaten)
+    );
   };
 
   const formatDateTime = () => {
