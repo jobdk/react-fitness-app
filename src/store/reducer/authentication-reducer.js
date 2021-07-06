@@ -7,6 +7,25 @@ import {
   SUCCESS_LOGIN,
 } from "../actions/authentication-actions";
 
+const authenticationReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SUCCESS_SIGN_UP:
+      return signUp(state, action);
+    case FAILED_SIGN_UP:
+      return signUpFailed(state, action);
+    case SUCCESS_LOGIN:
+      return login(state, action);
+    case FAILED_LOGIN:
+      return loginFailed(state, action);
+    case SUCCESS_LOGOUT:
+      return logout(state, action);
+    case FAILED_LOGOUT:
+      return logoutFailed(state);
+    default:
+      return state;
+  }
+};
+
 const initialState = {
   expiration: +window.localStorage.getItem("expiration"),
   signUpSuccess: null,
@@ -78,25 +97,6 @@ const updateState = (state, payload) => {
     ...state,
     ...payload,
   };
-};
-
-const authenticationReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SUCCESS_SIGN_UP:
-      return signUp(state, action);
-    case FAILED_SIGN_UP:
-      return signUpFailed(state, action);
-    case SUCCESS_LOGIN:
-      return login(state, action);
-    case FAILED_LOGIN:
-      return loginFailed(state, action);
-    case SUCCESS_LOGOUT:
-      return logout(state, action);
-    case FAILED_LOGOUT:
-      return logoutFailed(state);
-    default:
-      return state;
-  }
 };
 
 export default authenticationReducer;
