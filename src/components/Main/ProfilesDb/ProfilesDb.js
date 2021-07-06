@@ -5,18 +5,19 @@ import { useState, useEffect } from "react";
 
 const ProfilesDb = (props) => {
   const [deleted, setDeleted] = useState(0);
-  const hasExpiration = useSelector(
-    (state) => state.authenticationReducer.expiration
-  );
-
-  const onDelete = (id) => {
-    setDeleted(id);
-    props.deleteProfile(id);
-  };
 
   useEffect(() => {
     props.getProfiles();
   }, [deleted]);
+
+  const onDelete = (id) => {
+    props.deleteProfile(id);
+    setDeleted(id);
+  };
+
+  const hasExpiration = useSelector(
+    (state) => state.authenticationReducer.expiration
+  );
 
   if (props.profiles) {
     let profiles = props.profiles;

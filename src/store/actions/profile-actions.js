@@ -1,6 +1,10 @@
 import axios from "../../axios-url";
 
 export const STORE_PROFILES = "STORE_PROFILES";
+export const POST_PROFILE_SUCCESS = "POST_PROFILE_SUCCESS";
+export const POST_PROFILE_FAILED = "POST_PROFILE_FAILED";
+export const PUT_PROFILE_SUCCESS = "PUT_PROFILE_SUCCESS";
+export const PUT_PROFILE_FAILED = "PUT_PROFILE_FAILED";
 
 const storeProfiles = (profiles) => {
   return {
@@ -42,17 +46,44 @@ export const deleteProfile = (profileId) => {
   };
 };
 
+const postProfileSuccess = (postProfileSuccessMessage, name) => {
+  return {
+    type: POST_PROFILE_SUCCESS,
+    payload: postProfileSuccessMessage + " " + name,
+  };
+};
+
+const postProfileFailed = (postProfileFailedMessage, name) => {
+  return {
+    type: POST_PROFILE_FAILED,
+    payload: postProfileFailedMessage + " " + name,
+  };
+};
+
 export const postProfile = (profile) => {
   return (dispatch) => {
     axios
       .post("/fitness/profile/", profile, { withCredentials: true })
       .then((response) => {
-        console.log(response);
-        //dispatch(storeFoods(response.data));
+        dispatch(postProfileSuccess(response.data, profile.name));
       })
       .catch((error) => {
-        alert(error.message);
+        dispatch(postProfileFailed(error.message, profile.name));
       });
+  };
+};
+
+const putProfileSuccess = (putProfileSuccessMessage, name) => {
+  return {
+    type: PUT_PROFILE_SUCCESS,
+    payload: putProfileSuccessMessage + " " + name,
+  };
+};
+
+const putProfileFailed = (putProfileFailedMessage, name) => {
+  return {
+    type: PUT_PROFILE_FAILED,
+    payload: putProfileFailedMessage + " " + name,
   };
 };
 
@@ -61,11 +92,10 @@ export const putProfile = (profile) => {
     axios
       .put("/fitness/profile/", profile, { withCredentials: true })
       .then((response) => {
-        console.log(response);
-        //dispatch(storeProfiles(response.data));
+        dispatch(putProfileSuccess(response.data, profile.name));
       })
       .catch((error) => {
-        console.log(error.message);
+        dispatch(putProfileFailed(error.message, profile.name));
       });
   };
 };

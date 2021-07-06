@@ -77,10 +77,10 @@ const putExerciseSuccess = (putExerciseSuccessMessage, name) => {
   };
 };
 
-const putExerciseFailed = (putFoodFailedMessage, name) => {
+const putExerciseFailed = (putExerciseFailedMessage, name) => {
   return {
     type: PUT_EXERCISE_FAILED,
-    payload: putFoodFailedMessage + " " + name,
+    payload: putExerciseFailedMessage + " " + name,
   };
 };
 

@@ -72,7 +72,7 @@ const EditFood = (props) => {
       {isSuccessfullyEdited ===
       "Request failed with status code 422 " + bufferName ? (
         <div>
-          <h1>Could not be added.</h1>
+          <h1>Could not be edited.</h1>
         </div>
       ) : null}
       {isSuccessfullyEdited === "edited food " + bufferName ? (

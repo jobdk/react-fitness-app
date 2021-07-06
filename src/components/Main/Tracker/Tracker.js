@@ -145,7 +145,6 @@ const Tracker = () => {
     }
   };
 
-  // here
   const onChangeFoodAmount = (food, amount) => {
     let buffer = { ...currentDayBuffer };
     for (let i = 0; i < buffer.food.length; i++) {
