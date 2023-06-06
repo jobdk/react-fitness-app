@@ -1,5 +1,5 @@
-# Responsive fitness app for entering fitness data like weight, exercise and food. 
+# Responsive fitness app for entering fitness data such as weight, exercise and food. 
 
-1. `yarn install` oder `npm install` - ich habe mit yarn gearbeitet
+1. `yarn install` or `npm install`
 
-2. `yarn start` oder `npm start`
+2. `yarn start` or `npm start`
